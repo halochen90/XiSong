@@ -1,31 +1,11 @@
-var order = ['red', 'yellow', 'blue', 'green', 'red']
 Page({
-  data: {
-    toView: 'red',
-    scrollTop: 100
-  },
-  upper: function (e) {
-    console.log(e)
-  },
-  lower: function (e) {
-    console.log(e)
-  },
-  scroll: function (e) {
-    console.log(e)
-  },
-  tap: function (e) {
-    for (var i = 0; i < order.length; ++i) {
-      if (order[i] === this.data.toView) {
-        this.setData({
-          toView: order[i + 1]
-        })
-        break
-      }
-    }
-  },
-  tapMove: function (e) {
-    this.setData({
-      scrollTop: this.data.scrollTop + 10
+  didPressChooseImage: function () {
+    var that = this;
+    console.log(that)
+    wx.previewImage({
+      
+      // current: "", // 当前显示图片的http链接
+      urls: ["https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1255488850,1302294790&fm=26&gp=0.jpg", "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1255488850,1302294790&fm=26&gp=0.jpg"] // 需要预览的图片http链接列表
     })
   }
 })

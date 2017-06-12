@@ -1,3 +1,4 @@
+const qiniuUploader = require("../../utils/qiniuUploader");
 //index.js
 //获取应用实例
 var app = getApp()
@@ -9,8 +10,11 @@ Page({
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
-      url: '../content/content'
+      url: '/pages/content/content',
     })
+    // wx.switchTab({
+    //   url: '/pages/me/me'
+    // })
   },
   onLoad: function () {
     console.log('onLoad')

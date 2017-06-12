@@ -6,5 +6,6 @@
   </view>
   <view class="usermotto">
       <text bindtap="bindViewTap" class="pageinfo-welcome">点击此处进入首页</text> 
+      <button type="primary" bindtap="primary"> 上传图片 </button>
   </view>
 </view>
