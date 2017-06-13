@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/record/record",
     "pages/index/index",
     "pages/content/content",
-    "pages/me/me",
-    "pages/record/record"
+    "pages/me/me"
   ],
   "window": {
     "backgroundTextStyle": "light",
