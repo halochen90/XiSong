@@ -2,7 +2,7 @@
 (function() {
 
 var config = {
-    qiniuUploadURL: '',
+    qiniuRegion: '',
     qiniuImageURLPrefix: '',
     qiniuUploadToken: '',
     qiniuUploadTokenURL: '',
@@ -12,13 +12,14 @@ var config = {
 module.exports = {
     init: init,
     upload: upload,
+    uploadMulti: uploadMulti
 }
 
 // 在整个程序生命周期中，只需要 init 一次即可
 // 如果需要变更参数，再调用 init 即可
 function init(options) {
     config = {
-        qiniuUploadURL: '',
+        qiniuRegion: '',
         qiniuImageURLPrefix: '',
         qiniuUploadToken: '',
         qiniuUploadTokenURL: '',
@@ -28,10 +29,10 @@ function init(options) {
 }
 
 function updateConfigWithOptions(options) {
-    if (options.uploadURL) {
-        config.qiniuUploadURL = options.uploadURL;
+    if (options.region) {
+        config.qiniuRegion = options.region;
     } else {
-        console.error('qiniu uploader need uploadURL');
+        console.error('qiniu uploader need your bucket region');
     }
     if (options.uptoken) {
         config.qiniuUploadToken = options.uptoken;
@@ -43,6 +44,12 @@ function updateConfigWithOptions(options) {
     if (options.domain) {
         config.qiniuImageURLPrefix = options.domain;
     }
+}
+
+function uploadMulti(filePaths, success, fail, options){
+  for (var i = 0; i < filePaths.length; i++) {
+    upload(filePaths[i], success, fail, options);
+  }
 }
 
 function upload(filePath, success, fail, options) {
@@ -68,7 +75,7 @@ function upload(filePath, success, fail, options) {
 }
 
 function doUpload(filePath, success, fail, options) {
-    var url = config.qiniuUploadURL;
+    var url = uploadURLFromRegionCode(config.qiniuRegion);
     var fileName = filePath.split('//')[1];
     if (options && options.key) {
         fileName = options.key;
@@ -89,11 +96,15 @@ function doUpload(filePath, success, fail, options) {
             var imageUrl = config.qiniuImageURLPrefix + dataObject.key;
             dataObject.imageURL = imageUrl;
             console.log(dataObject);
-            success(dataObject);
+            if (success) {
+                success(dataObject);
+            }
         },
         fail: function (error) {
             console.log(error);
-            fail(error);
+            if (fail) {
+                fail(error);
+            }
         }
     })
 }
@@ -112,6 +123,18 @@ function getQiniuToken(callback) {
       console.log(error);
     }
   })
+}
+
+function uploadURLFromRegionCode(code) {
+    var uploadURL = null;
+    switch(code) {
+      case 'ECN': uploadURL = 'https://upload.qbox.me'; break;
+        case 'NCN': uploadURL = 'https://up-z1.qbox.me'; break;
+        case 'SCN': uploadURL = 'https://up-z2.qbox.me'; break;
+        case 'NA': uploadURL = 'https://up-na0.qbox.me'; break;
+        default: console.error('please make the region is with one of [ECN, SCN, NCN, NA]');
+    }
+    return uploadURL;
 }
 
 })();

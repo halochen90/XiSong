@@ -4,10 +4,9 @@ const qiniuUploader = require("../../utils/qiniuUploader");
 // 初始化七牛相关参数
 function initQiniu() {
   var options = {
-    region: 'ECN', // 华北区
-    uptoken: 'vZLH9HumQWw09YdFUp-wr3npuFk8t-D9IENOJSRJ:KYjVHRb0NJy4cz_VJvXdUXABC98=:eyJzY29wZSI6ImhhbG8iLCJkZWFkbGluZSI6MTQ5NzI3NTIzM30=',
-    domain: 'http://image.halochen.com/',
-    key: 'xisong.jpeg'
+    region: 'ECN', // 华东区
+    uptoken: 'vZLH9HumQWw09YdFUp-wr3npuFk8t-D9IENOJSRJ:JNtqGTjfUQTmRpdzQTiHzQGOBm0=:eyJzY29wZSI6ImhhbG8iLCJkZWFkbGluZSI6MTQ5NzMyNTQ3M30=',
+    domain: 'http://image.halochen.com/'
   };
   qiniuUploader.init(options);
 }
@@ -16,12 +15,19 @@ function initQiniu() {
 var app = getApp()
 Page({
   data: {
-    imageObject: {}
+    motto: '欢迎光临晨曦之歌..',
+    images: [],
+    userInfo:{}
   },
-  //事件处理函数
+  //加载函数
   onLoad: function () {
-    console.log('onLoad')
     var that = this;
+    app.getUserInfo(function(userInfo){
+      that.setData({
+        userInfo:userInfo
+      })
+      // console.log("me:",userInfo);
+    })
   },
   
   didPressChooesImage: function () {
@@ -34,18 +40,22 @@ function didPressChooesImage(that) {
   initQiniu();
   // 微信 API 选文件
   wx.chooseImage({
-    count: 1,
+    count: 9,//最多可以选择的图片张数，默认9
     success: function (res) {
-      var filePath = res.tempFilePaths[0];
-      // 交给七牛上传
-      qiniuUploader.upload(filePath, (res) => {
+      var filePaths = res.tempFilePaths;
+      // 交给七牛上传多张图片
+      qiniuUploader.uploadMulti(filePaths, (res) => {
+        that.data.images.push(res);
         that.setData({
-          'imageObject': res
+          images: that.data.images
         });
-      }, (error) => {
-        console.error('error: ' + JSON.stringify(error));
-      });
+        }, (error) => {
+          console.error('error: ' + JSON.stringify(error));
+        });
+
+        console.log(that.data);
+      }    
+      
     }
-  }
   )
 }

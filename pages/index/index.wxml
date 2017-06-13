@@ -1,11 +1,1 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text> 
-  </view>
-  <view class="usermotto">
-      <text bindtap="bindViewTap" class="pageinfo-welcome">点击此处进入首页</text> 
-      <button type="primary" bindtap="primary"> 上传图片 </button>
-  </view>
-</view>
+

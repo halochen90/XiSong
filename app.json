@@ -1,8 +1,6 @@
 {
   "pages": [
-    "pages/record/record",
     "pages/index/index",
-    "pages/content/content",
     "pages/me/me"
   ],
   "window": {
@@ -17,8 +15,8 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/record/record",
-        "text": "记录"
+        "pagePath": "pages/index/index",
+        "text": "首页"
       },
       {
         "pagePath": "pages/me/me",
