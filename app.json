@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/imgup/imgup",
     "pages/me/me"
   ],
   "window": {

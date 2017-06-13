@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="feedbackContainer" catchtouchmove="doNothing">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+   <textarea class="feedText" focus="true" placeholder="记录下现在的心情吧^_^" name="textarea"/>
+  
+   <view class="imageBox">
+
+    <view class="addBox" bindtap="chooseImg">
+      <image class="addImage" src="../../images/addImage.png" style="width: 160rpx;height: 160rpx;"></image>
+    </view>
+
+     <ul class="imageList" wx:for="{{ images }}" wx:for-item="image" wx:key="imageURL">
+       <li class="images">
+         <view class="imageInfo">
+           <image class="image" src="{{ image }}" data-src="{{ image }}" bindtap="checkImage" style="width: 160rpx;height: 160rpx;"></image>
+           <image class="cancel" src="../../images/cencel.png" bindtap="cencelImage" style="width: 26rpx;height: 26rpx;"></image>
+         </view>
+       </li>
+     </ul>
+   </view>
+
+   <button formType='submit' class="feedbackBtn" disabled="{{disabled}}">提交</button>
+
+ </form>
+</view>

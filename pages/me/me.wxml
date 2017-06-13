@@ -1,21 +1,11 @@
-<!--index.wxml-->
-<view class="main" wx:if="{{userInfo.nickName == 'halo子轩'}}">
-
-  <scroll-view class="image-container" wx:for="{{images}}" wx:key="imageURL">
-    <image class="image" src="{{item.imageURL}}" mode="aspectFit"></image>
-  </scroll-view> 
-  
-
-  <view class="uploadView">
-    <button type="primary" bindtap="didPressChooesImage">上传图片</button>  
-  </view>
-
-</view>
-
-<view class="main" wx:else>
+<view class="main">
    <view class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname" wx:if="{{userInfo.nickName == 'halo子轩'}}">{{userInfo.nickName}}</text> 
   </view>
    <view class="usermotto">{{motto}}</view>
+
+    <view class="uploadView" wx:if="{{userInfo.nickName == 'halo子轩'}}">
+    <button type="primary" bindtap="wantPublish">我要发布</button>  
+  </view>
 </view>

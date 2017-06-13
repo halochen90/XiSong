@@ -30,9 +30,11 @@ Page({
     })
   },
   
-  didPressChooesImage: function () {
+  wantPublish: function () {
     var that = this;
-    didPressChooesImage(that);
+    wx.navigateTo({
+      url: '/pages/imgup/imgup'
+    })
   }
 });
 
