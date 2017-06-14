@@ -4,7 +4,7 @@ const qiniuUploader = require("../../utils/qiniuUploader");
 function initQiniu() {
   var options = {
     region: 'ECN', // 华东区
-    uptokenURL: 'http://localhost:8888/api/qiniu/token',
+    uptokenURL: 'https://api.halochen.com:8443/api/qiniu/token',
     domain: 'http://image.halochen.com/'
   };
   qiniuUploader.init(options);
@@ -67,6 +67,13 @@ Page({
     var that = this
     console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
     var filePaths = that.data.images;
+    if(filePaths.length < 1){
+      wx.showToast({
+        title: '请至少上传一张图片！',
+      })
+      return;
+    }
+
     initQiniu();
     //构造一个参数对象
     var params = new Object();
@@ -83,6 +90,9 @@ Page({
         sendRequest(params);
       }
     }, (error) => {
+      wx.showToast({
+        title: '图片上传失败！'
+      })
       console.error('error: ' + JSON.stringify(error));
     });
   }
@@ -90,7 +100,7 @@ Page({
 
 function sendRequest(params) {
   wx.request({
-    url: 'http://api.halochen.com:8888/api/records',
+    url: 'https://api.halochen.com:8443/api/records',
     method: 'POST',
     data: {
       nickname:params.nickName,

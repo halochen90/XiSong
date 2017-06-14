@@ -120,6 +120,9 @@ function getQiniuToken(callback) {
       }
     },
     fail: function (error) {
+      wx.showToast({
+        title: 'token获取失败！'
+      })
       console.log(error);
     }
   })
