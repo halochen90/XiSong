@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="feedbackContainer" catchtouchmove="doNothing">
   <form bindsubmit="formSubmit" bindreset="formReset">
-   <textarea class="feedText" focus="true" placeholder="记录下现在的心情吧^_^" name="textarea"/>
+   <textarea class="feedText" focus="true" placeholder="记录下现在的心情吧^_^" name="comment"/>
   
    <view class="imageBox">
 
