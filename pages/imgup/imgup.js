@@ -1,17 +1,19 @@
 const qiniuUploader = require("../../utils/qiniuUploader");
+//获取应用实例
+var app = getApp()
 
 // 初始化七牛相关参数
 function initQiniu() {
   var options = {
     region: 'ECN', // 华东区
-    uptokenURL: 'https://api.halochen.com:8443/api/qiniu/token',
+    uptokenURL: app.REQUEST_URL + '/api/qiniu/token',
     domain: 'http://image.halochen.com/'
   };
   qiniuUploader.init(options);
+  // console.log(options.uptokenURL)
 }
 
-//获取应用实例
-var app = getApp()
+
 Page({
   data: {
     images: [],
@@ -37,6 +39,7 @@ Page({
       for(var index in filePaths){
         that.data.images.push(filePaths[index]);
       }
+      //必须setData
        that.setData({
          images: that.data.images
        })
@@ -60,6 +63,22 @@ Page({
  },
 
   cencelImage:function(e){
+    var that = this;
+    var index = that.data.images.index;
+    wx.showModal({
+      title: '提示',
+      content: '确定删除该图片？',
+      success: function (res) {
+        if (res.confirm) {
+          var images = that.data.images;
+          images.splice(index, 1);
+          that.setData({
+            images: images
+          })
+          // console.log('删除成功');
+        }
+      }
+    })
 
   },
  
@@ -67,9 +86,11 @@ Page({
     var that = this
     console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
     var filePaths = that.data.images;
-    if(filePaths.length < 1){
+    var comment = e.detail.value.comment;
+    var len = comment.replace(/(^\s*)|(\s*$)/g, "").length;
+    if(filePaths.length < 1 && (len == 0)){
       wx.showToast({
-        title: '请至少上传一张图片！',
+        title: '请至少上传一张图片或输入一段文字！',
       })
       return;
     }
@@ -94,13 +115,16 @@ Page({
         title: '图片上传失败！'
       })
       console.error('error: ' + JSON.stringify(error));
+    }, () => {
+      //如果没有图片，只上传文字
+      sendRequest(params);
     });
   }
 })
 
 function sendRequest(params) {
   wx.request({
-    url: 'https://api.halochen.com:8443/api/records',
+    url: app.REQUEST_URL + '/api/records',
     method: 'POST',
     data: {
       nickname:params.nickName,

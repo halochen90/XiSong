@@ -3,8 +3,9 @@
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname" wx:if="{{userInfo.nickName == 'halo子轩'}}">{{userInfo.nickName}}</text> 
   </view>
-   <view class="usermotto">{{motto}}</view>
-
+   <view class="usermotto">
+    <text class="motto">{{motto}}</text>
+    </view>
     <view class="uploadView" wx:if="{{userInfo.nickName == 'halo子轩'}}">
     <button type="primary" bindtap="wantPublish">我要发布</button>  
   </view>

@@ -46,7 +46,10 @@ function updateConfigWithOptions(options) {
     }
 }
 
-function uploadMulti(filePaths, success, fail, options){
+  function uploadMulti(filePaths, success, fail, nullDo, options){
+  if (filePaths.length == 0){
+    nullDo();
+  }
   for (var i = 0; i < filePaths.length; i++) {
     upload(filePaths[i], success, fail, options);
   }

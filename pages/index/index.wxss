@@ -1,23 +1,49 @@
+.itemView{
+  border-bottom: solid lightgrey 1rpx;
+}
+
 .imageList{
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.images{
-	margin-left: 24rpx;
-	margin-bottom: 20rpx;
+.image{
+  width: 214rpx;
+  height: 214rpx;
 }
 
 .imageInfo{
 	position: relative;
 	display: block;
-	width: 160rpx;
-	height: 160rpx;
+  margin: 10rpx;
 }
 
 .imageBox{
-	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-  margin-top:12px;
+  padding:20rpx;
+}
+
+
+.commentView{
+  width:100%;
+  margin-bottom:10rpx;
+  padding-left:10rpx;
+  padding-right:10rpx;
+}
+
+.commentText{
+  color: black;
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular;
+}
+
+.timeView{
+  width:100%
+}
+
+.timeText{
+   color: lightgrey;
+  font-size: 26rpx;
+  font-family: PingFangSC-Regular;
 }

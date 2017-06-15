@@ -1,10 +1,25 @@
-<view class="imageBox" wx:for="{{recordPage.records}}" wx:key="recordId">
-  <ul class="imageList">
-    <li class="images" wx:for="{{item.images}}" wx:key="imageId">
-      <view class="imageInfo">
-        <image src="{{preUrl}}{{item.name}}" style="width: 100px;height: 100px;"></image>
-        </view>
-    </li>
-  </ul>
+<view class="bodyView">
+<view class="itemView" wx:for="{{records}}" wx:key="recordId" wx:for-item="record">
+    <view class="imageBox">
+    <!--文字描述-->
+      <view class="commentView">
+        <text class="commentText">{{record.comment}}</text>
+      </view>
+      <!--图片展示-->
+      <view class="ulView">
+        <ul class="imageList">
+          <li class="images" wx:for="{{record.images}}" wx:key="imageId">
+            <view class="imageInfo">
+              <image src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{record.images}}"></image>
+            </view>
+          </li>
+        </ul>
+      </view>
+      <!--时间显示-->
+      <view class="timeView">
+        <text class="timeText">{{item.dateCreated}}</text>
+      </view>
+    </view>
+  </view>
 </view>
 
