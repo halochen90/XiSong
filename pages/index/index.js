@@ -18,12 +18,24 @@ Page({
       });
     }),
     //获取第一页的10条记录
-      sendRequest(1,that);
+      sendRequestRecords(1,that);
+  },
+  onReachBottom: function (e) {
+    var that = this;
+    var currentIndex = that.data.recordPage.currentIndex;
+    var totalPages = that.data.recordPage.totalPages;
+    if(currentIndex < totalPages){
+      sendRequestRecords(currentIndex+1);
+      console.log("加载下一页数据")
+    }else{
+      console.log("没有更多数据..")
+    }
+    console.log('使用全局方法滑动到了页面底部');
   }
 })
 
 //发送请求获取记录
-function sendRequest(currentIndex,that) {
+function sendRequestRecords(currentIndex,that) {
   wx.request({
     url: 'https://api.halochen.com:8443/api/records/currentIndex/'+ currentIndex,
     method: 'GET',
