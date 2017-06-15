@@ -1,3 +1,10 @@
-<view class="index-view">
-首页
+<view class="imageBox" wx:for="{{recordPage.records}}" wx:key="recordId">
+  <ul class="imageList">
+    <li class="images" wx:for="{{item.images}}" wx:key="imageId">
+      <view class="imageInfo">
+        <image src="{{preUrl}}{{item.name}}" style="width: 100px;height: 100px;"></image>
+        </view>
+    </li>
+  </ul>
 </view>
+

@@ -1,0 +1,23 @@
+.imageList{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.images{
+	margin-left: 24rpx;
+	margin-bottom: 20rpx;
+}
+
+.imageInfo{
+	position: relative;
+	display: block;
+	width: 160rpx;
+	height: 160rpx;
+}
+
+.imageBox{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+  margin-top:12px;
+}
