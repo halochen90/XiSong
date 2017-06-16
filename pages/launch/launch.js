@@ -22,20 +22,16 @@ Page({
         userInfo: userInfo
       });
     })
-  },
 
-  onShow:function(){
-    var that = this;
     //获取破壳天数
     var d = new Date();
-    var today = d.getFullYear()+ "-" + (d.getMonth() + 1) + "-" + d.getDate();
-    
-    var num = dateDiff(that.data.birthday,today);
+    var today = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+
+    var num = dateDiff(that.data.birthday, today);
     console.log("num:" + num)
     that.setData({
       days: num
     })
-    console.log("days:"+that.data.days)
   },
 
   watchPhoto: function(){
