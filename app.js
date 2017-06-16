@@ -1,6 +1,6 @@
 //app.js
 App({
-  REQUEST_URL: "https://request.halochen.com:8443",
+  REQUEST_URL: "https://request.halochen.com",
   onLaunch: function () {
    
   },
