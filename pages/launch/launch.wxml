@@ -8,7 +8,7 @@
     <view class="textView">
       <text>宝宝破壳至今已</text>
     </view>
-    <text class="dayNum">{{dayNum}}</text>天
+    <text class="dayNum">{{days}}</text>天
   </view>
 
   <view class="buttonView">

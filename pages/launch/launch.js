@@ -7,7 +7,7 @@ Page({
    */
   data: {
     birthday:'2017-6-1',
-    dayNum:0
+    days:0
   },
 
   /**
@@ -22,16 +22,30 @@ Page({
         userInfo: userInfo
       });
     })
-
-    //获取破壳天数
-    var dayNum = dateDiff(that.data.birthday,new Date().toDateString());
-    that.setData({
-      dayNum:dayNum
-    })
   },
+
+  onShow:function(){
+    var that = this;
+    //获取破壳天数
+    var d = new Date();
+    var today = d.getFullYear()+ "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    
+    var num = dateDiff(that.data.birthday,today);
+    console.log("num:" + num)
+    that.setData({
+      days: num
+    })
+    console.log("days:"+that.data.days)
+  },
+
   watchPhoto: function(){
     var that = this;
-    console.log(that.data.userInfo)
+    wx.switchTab({
+      url: '/pages/index/index',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   },
 
   /**
@@ -49,11 +63,13 @@ Page({
   }
 })
 function dateDiff(sDate1, sDate2) {    //sDate1和sDate2是2002-12-18格式  
-  var aDate, oDate1, oDate2, iDays
-  aDate = sDate1.split("-")
-  oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0])    //转换为12-18-2002格式  
+
+  var aDate, oDate1, oDate2, iDays;
+  aDate = sDate1.split("-");  
+  oDate1 = new Date(aDate[0] + "/" + aDate[1] + "/" + aDate[2])    //2002-12-18格式 
   aDate = sDate2.split("-")
-  oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0])
-  iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24)    //把相差的毫秒数转换为天数  
-  return iDays
+  oDate2 = new Date(aDate[0] + '/' + aDate[1] + '/' + aDate[2]) 
+  iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24)    //把相差的毫秒数转换为天数 
+  
+  return iDays;
 }
