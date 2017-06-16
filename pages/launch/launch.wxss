@@ -1,0 +1,44 @@
+/* launch.wxss */
+page{
+/*background-color: #1fc516;*/
+}
+.bodyView{
+  padding-top:50rpx;
+  
+}
+.avatarView{
+  display: flex;
+  width: 100%;
+  justify-content:center;
+  align-items:center;
+}
+
+.timeView{
+   display: flex;
+   justify-content:center;
+   align-items:center;
+   height: 200rpx;
+   font-size: 60rpx;
+   font-family: PingFangSC-Regular;
+   flex-wrap: wrap;
+   padding-top:50rpx;
+}
+.textView{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.dayNum{
+  font-size: 200rpx;
+  padding: 10rpx;
+}
+.buttonView{
+  position: absolute;
+  bottom:140rpx;
+  width:100%;
+}
+
+.buttonView button{
+  width:40%;
+}

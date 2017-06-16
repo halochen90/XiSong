@@ -17,7 +17,7 @@
       </view>
       <!--时间显示-->
       <view class="timeView">
-        <text class="timeText">{{item.dateCreated}}</text>
+        <text class="timeText">{{record.dateCreated}}</text>
       </view>
     </view>
   </view>
