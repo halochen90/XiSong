@@ -54,6 +54,7 @@ Page({
 
 //发送请求获取记录
 function sendRequestRecords(currentIndex,that) {
+  console.log("获取相册数据。。")
   wx.request({
     url: app.REQUEST_URL + '/api/images/currentIndex/'+ currentIndex,
     method: 'GET',

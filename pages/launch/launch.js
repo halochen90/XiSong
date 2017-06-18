@@ -17,11 +17,10 @@ Page({
     var that = this;
     console.log("launch onload..")
     wx.checkSession({//检查当前是否是登录态
-      // success: function () {
-      //   console.log("当前是登录态");
-      // },
-      //此处需要改为fail,暂时调试用
       success: function () {
+        console.log("当前是登录态");
+      },
+      fail: function () {
         //调用登录接口
         wx.login({
           success: function (loginRes) {
@@ -32,6 +31,7 @@ Page({
         })
       }
     })
+
 
     //调用应用实例的方法获取全局数据
     // app.getUserInfo(function (userInfo) {

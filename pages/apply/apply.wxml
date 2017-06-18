@@ -17,7 +17,7 @@
     <form bindsubmit="dealApply" report-submit="true">
       <input hidden="true" name="param" value="1" />
       <input hidden="true" name="index" value="{{index}}" />
-      <input hidden="true" name="record" value="{{record}}" />
+      <input hidden="true" name="id" value="{{record.id}}" />
       <button class="accept" type="primary" formType="submit">通过</button>
       </form>
 

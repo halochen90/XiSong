@@ -83,6 +83,9 @@ Page({
  
   formSubmit: function (e) {
     var that = this
+    that.setData({
+      disabled:true
+    })
     console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
     var filePaths = that.data.images;
     var comment = e.detail.value.comment;

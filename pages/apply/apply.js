@@ -21,11 +21,11 @@ Page({
     console.log(e)
     var that = this;
     var isAuth = e.detail.value.param;
-    var record = e.detail.value.record;
+    var id = e.detail.value.id;
     var index = e.detail.value.index;
     var formId = e.detail.formId;
-    console.log("isAuth:" + isAuth+",record:"+record+",index:"+index);
-    dealApplyAuth(isAuth, record, index,formId,that);
+    console.log("isAuth:" + isAuth+",id:"+id +",index:"+index);
+    dealApplyAuth(isAuth, id, index,formId,that);
   }
 })
 
@@ -45,11 +45,11 @@ function getApplyRecords(that){
   })
 }
 
-function dealApplyAuth(isAuth, record, index,formId,that){
+function dealApplyAuth(isAuth, id, index,formId,that){
   wx.request({
     url: app.REQUEST_URL + '/api/information/dealAuthApply',
     method: 'PUT',
-    data: {isAuth:isAuth,id:record.id,formId:formId},
+    data: {isAuth:isAuth,id:id,formId:formId},
     header: {
       'content-type': 'application/json'
     },
