@@ -4,7 +4,9 @@
     "pages/index/index",
     "pages/photo/photo",
     "pages/imgup/imgup",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/auth/auth",
+    "pages/apply/apply"
   ],
   "window": {
     "backgroundTextStyle": "light",

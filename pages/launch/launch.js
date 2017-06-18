@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    birthday:'2017-6-1',
+    birthday:'2017-9-1',
     days:0
   },
 
@@ -15,49 +15,79 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    console.log("launch onload..")
+    wx.checkSession({//检查当前是否是登录态
+      // success: function () {
+      //   console.log("当前是登录态");
+      // },
+      //此处需要改为fail,暂时调试用
+      success: function () {
+        //调用登录接口
+        wx.login({
+          success: function (loginRes) {
+            //发起请求获取登录态
+            console.log("code:" + loginRes.code);
+            getSession(loginRes.code);
+          }
+        })
+      }
+    })
+
     //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      });
-    })
+    // app.getUserInfo(function (userInfo) {
+    //   //更新数据
+    //   that.setData({
+    //     userInfo: userInfo
+    //   });
+    // })
 
-    //获取破壳天数
-    var d = new Date();
-    var today = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-
-    var num = dateDiff(that.data.birthday, today);
-    console.log("num:" + num)
-    that.setData({
-      days: num
-    })
+    getBirthday(that);
   },
 
   watchPhoto: function(){
     var that = this;
-    wx.switchTab({
-      url: '/pages/index/index',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
+    //获取本地缓存的session
+    wx.getStorage({
+      key: 'session',
+      success: function(res) {
+        console.log("本地缓存session:"+res.data);
+        authSession(res.data);
+      },
+      fail: function(){
+          console.log("session is null");
+          wx.login({
+            success: function (loginRes) {
+              //发起请求获取登录态
+              console.log("code:" + loginRes.code);
+              getSession(loginRes.code);
+              wx.redirectTo({
+                url: '/pages/auth/auth',
+              })
+            }
+          })
+          // wx.showModal({
+          //   title: '授权提示！',
+          //   content: '需要您授权才能进行进入其他页面哦,建议打开授权）',
+          //   success: function (res) {
+          //     if (res.confirm) {
+          //       console.log('用户点击确定授权')
+          //       wx.openSetting({
+          //         success: (res) => {
+          //          console.log("小程序设置页面打开成功")
+          //         }
+          //       })
+              
+          //     } else if (res.cancel) {
+          //       console.log('用户点击取消授权');
+          //     }
+          //   }
+          // })
+      }
     })
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+   
   }
 })
+
 function dateDiff(sDate1, sDate2) {    //sDate1和sDate2是2002-12-18格式  
 
   var aDate, oDate1, oDate2, iDays;
@@ -68,4 +98,92 @@ function dateDiff(sDate1, sDate2) {    //sDate1和sDate2是2002-12-18格式
   iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24)    //把相差的毫秒数转换为天数 
   
   return iDays;
+}
+
+//发送请求获取记录
+function getBirthday(that) {
+  wx.request({
+    url: app.REQUEST_URL + '/api/information/birthday',
+    method: 'GET',
+    data: {},
+    header: {
+      'content-type': 'application/json'
+    },
+    success: function (res) {
+      //获取破壳天数
+      var d = new Date();
+      var today = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+      var birthday = res.data.birthday;
+      console.log("birthday:"+birthday);
+      var num = dateDiff(birthday, today);
+      that.setData({
+        days: num
+      })
+    }
+  })
+}
+
+function getSession(code) {
+  wx.request({
+    url: app.REQUEST_URL + '/api/information/session',
+    method: 'GET',
+    data: { "code": code },
+    header: {
+      'content-type': 'application/json'
+    },
+    success: function (res) {
+      console.log("请求返回的session:" + res.data.session);
+      //把session存到本地
+      wx.setStorage({
+        key: 'session',
+        data: res.data.session ,
+      })
+
+      
+    }
+  })
+}
+
+function authSession(session){
+  console.log("authSession:",session)
+  wx.request({
+    url: app.REQUEST_URL + '/api/information/authSession',
+    method: 'GET',
+    data:{"session":session},
+    header:{
+      'content-type':'application/json'
+    },
+    success:function(res){
+      if(res.data.result){//验证成功，已授权
+        wx.switchTab({
+          url: '/pages/index/index'
+        })
+      }else{//验证失败,未授权
+        if (res.data.isAuth == 0){
+          console.log("身份验证失败，跳转到验证页面");
+          wx.navigateTo({
+            url: '/pages/auth/auth'
+          }) 
+        }else if(res.data.isAuth == -1){
+            wx.showToast({
+              title: '很遗憾，您的授权申请已被拒绝',
+            })
+        }else if(res.data.isAuth == -2){
+          wx.showToast({
+            title: '很遗憾，您没有权限访问其他页面',
+          })
+        }else{
+          wx.showToast({
+            title: '还未授权，请先申请授权',
+          })
+        }
+        
+      } 
+    },
+    fail:function(){
+      wx.showToast({
+        title: 'session验证出错！',
+      })
+    }
+  })
 }

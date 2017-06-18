@@ -75,7 +75,6 @@ Page({
           that.setData({
             images: images
           })
-          // console.log('删除成功');
         }
       }
     })

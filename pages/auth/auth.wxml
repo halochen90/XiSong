@@ -1,0 +1,24 @@
+<view class="bodyView">
+  <view class="containView">
+     <view class="tipView">
+      <text class="tip">注意！需要经过授权之后才可以看宝宝哦^_^</text>
+    </view>
+    <view class="formView">
+      <form bindsubmit="submitForm" report-submit="true">
+        <view class="nameView">
+          <text class="name">名字：</text>
+          <input  class="nameInput" focus="true" placeholder="请填写你的真实姓名（必填）" placeholder-class="phName" name="name"/>
+        </view>
+        <view class="nameView">
+          <text class="name">备注：</text>
+          <textarea class="comment" placeholder-class="phName" placeholder="(最多50个字，非必填)" name="comment"/>
+        </view>
+        <view class="buttonView">
+          <button class="authButton" type="primary" formType='submit'>申请授权</button>
+      </view>
+      </form>
+    </view>
+  </view>
+  
+
+</view>

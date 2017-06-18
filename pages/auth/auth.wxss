@@ -1,0 +1,38 @@
+.bodyView{
+  font-family: PingFangSC-Regular;
+}
+.tipView{
+  display: flex;
+  justify-content: center;
+  width:100%;
+  color:red;
+  margin-top: 40rpx;
+}
+.containView{
+  display: flex;
+  flex-wrap: wrap;
+}
+.formView{
+  margin-top:40rpx; 
+}
+.nameView{
+  display: flex;
+  flex-wrap: nowrap;
+  padding:10rpx;
+}
+.phName{
+  font-size: 34rpx;
+}
+.name{
+  color: #1fc516;
+  width: 120rpx;
+}
+
+
+.nameInput,textarea{
+  border:1px solid lightgray;
+  width:600rpx;
+}
+.buttonView{
+  margin-top:40rpx;
+}

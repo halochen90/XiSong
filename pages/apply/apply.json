@@ -1,6 +1,6 @@
 {
-  "backgroundTextStyle": "dark",
+  "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#1fc516",
-  "navigationBarTitleText": "主页",
+  "navigationBarTitleText": "授权处理",
   "navigationBarTextStyle": "white"
 }

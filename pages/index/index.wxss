@@ -8,42 +8,42 @@
 }
 
 .image{
-  width: 214rpx;
-  height: 214rpx;
+  width: 232rpx;
+  height: 232rpx;
 }
 
 .imageInfo{
 	position: relative;
 	display: block;
-  margin: 10rpx;
+  padding: 2rpx 4rpx;
 }
 
 .imageBox{
 	display: flex;
 	flex-wrap: wrap;
-  padding:20rpx;
+  padding:14rpx;
 }
 
 
 .commentView{
   width:100%;
   margin-bottom:10rpx;
-  padding-left:10rpx;
-  padding-right:10rpx;
+  padding:0 4rpx;
 }
 
 .commentText{
   color: black;
-  font-size: 36rpx;
+  font-size: 34rpx;
   font-family: PingFangSC-Regular;
 }
 
 .timeView{
-  width:100%
+  width:100%;
+  padding:0 4rpx;
 }
 
 .timeText{
-   color: lightgrey;
+  color: lightgrey;
   font-size: 26rpx;
   font-family: PingFangSC-Regular;
 }

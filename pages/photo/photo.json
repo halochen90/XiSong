@@ -1,1 +1,6 @@
-{}
+{
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#1fc516",
+  "navigationBarTitleText": "相册",
+  "navigationBarTextStyle": "white"
+}

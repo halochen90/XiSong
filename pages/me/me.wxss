@@ -55,7 +55,11 @@ text {
   width:100%;
 }
 
-.uploadView button{
-  width:30%;
+.publishButton{
   background-color:#1fc516;
+  width:50%
+}
+.dealButton{
+  margin-top:60rpx;
+  width:30%
 }

@@ -40,5 +40,5 @@ page{
 }
 
 .buttonView button{
-  width:40%;
+  width:42%;
 }

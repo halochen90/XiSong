@@ -1,0 +1,26 @@
+.recordView,.nameItem,.commentItem,.buttonItem{
+  display: flex;
+  flex-wrap: wrap;
+}
+.textView{
+  width:100%;
+  padding:10rpx;
+}
+.key{
+  color:lightgrey;
+}
+.value{
+  color:white
+}
+.recordView{
+  padding:20rpx;
+  border:1px solid black;
+  background-color:green;
+  margin-bottom:20rpx;
+}
+.nameItem,.commentItem,.buttonItem{
+  width: 100%
+}
+.accept{
+  width:240rpx;
+}
