@@ -1,4 +1,5 @@
 //app.js
+var authTip = require("utils/authTip");
 App({
   REQUEST_URL: "https://request.halochen.com",
   globalData: {
@@ -16,6 +17,9 @@ App({
           success: function (res) {
             that.globalData.userInfo = res.userInfo
             typeof cb == "function" && cb(that.globalData.userInfo)
+          },
+          fail: function () {
+            authTip.alertAuthTip();
           }
         })
       }

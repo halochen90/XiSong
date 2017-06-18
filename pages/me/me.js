@@ -1,6 +1,8 @@
 
 //获取应用实例
 var app = getApp()
+var authTip = require("../../utils/authTip");
+
 Page({
   data: {
     motto: '欢迎光临晨曦之歌..',
@@ -10,11 +12,18 @@ Page({
   },
   //加载函数
   onLoad: function () {
+    console.log("me onload")
     var that = this;
-    app.getUserInfo(function(userInfo){
-      that.setData({
-        userInfo:userInfo
-      })
+    wx.getUserInfo({
+      success: function (res) {
+        // console.log("获取用户信息成功:",res)
+        that.setData({
+          userInfo:res.userInfo
+        })
+      },
+      fail: function () {
+        authTip.alertAuthTip("/pages/me/me");
+      }
     })
     //判断当前用户是否是管理员
     isAdmin(that);
