@@ -41,7 +41,6 @@ function sendAuthRequest(name, comment,formId){
         method: 'POST',
         data: {name: name,comment:comment,formId:formId},
         header: {
-          session: app.SESSION,
           "content-type": "application/x-www-form-urlencoded;charset=UTF-8" 
         },
         success: function (res) {
