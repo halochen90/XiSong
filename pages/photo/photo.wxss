@@ -1,11 +1,18 @@
 .bodyView{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .image{
   width: 182rpx;
   height: 182rpx;
+}
+.imageInfo{
+  padding-left: 5rpx;
+  padding-right: 5rpx;
+}
+.thirdImageView{
+  padding-left: 5rpx;
 }
 
 

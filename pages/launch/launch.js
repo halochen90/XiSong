@@ -157,9 +157,22 @@ function authSession(session){
           wx.showToast({
             title: '很遗憾，您没有权限访问其他页面',
           })
-        }else{
-          wx.showToast({
-            title: '还未授权，请先申请授权',
+        }else{//session不匹配，重新登录
+          wx.login({
+            success: function (loginRes) {
+              //发起请求获取登录态
+              console.log("code:" + loginRes.code);
+              saveSession(loginRes.code);
+              //判断权限
+              wx.getStorage({
+                key: 'session',
+                success: function(res) {
+                  //验证session
+                  authSession(res.data);
+                },
+              })
+              
+            }
           })
         }
         

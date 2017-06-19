@@ -1,5 +1,17 @@
 <view class="bodyView">  
-  <view class="imageInfo" wx:for="{{images}}" wx:key="imageId">
-      <image src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{images}}"></image>
+<block wx:for="{{images}}" wx:key="imageId">
+  <view class ="secondImageView" wx:if="{{(index % 4 == 1)}}"  >
+      <image src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{images}}">
+      </image>
   </view>
+
+ <view class ="thirdImageView" wx:elif="{{(index % 4 == 2)}}"  >
+       <image src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{images}}">
+       </image>
+ </view>
+
+  <view wx:else class="imageInfo">
+        <image  src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{images}}"></image>
+  </view>
+</block>
 </view>
