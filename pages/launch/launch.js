@@ -26,7 +26,7 @@ Page({
           success: function (loginRes) {
             //发起请求获取登录态
             console.log("code:" + loginRes.code);
-            getSession(loginRes.code);
+            saveSession(loginRes.code);
           }
         })
       }
@@ -59,29 +59,12 @@ Page({
             success: function (loginRes) {
               //发起请求获取登录态
               console.log("code:" + loginRes.code);
-              getSession(loginRes.code);
+              saveSession(loginRes.code);
               wx.redirectTo({
                 url: '/pages/auth/auth',
               })
             }
           })
-          // wx.showModal({
-          //   title: '授权提示！',
-          //   content: '需要您授权才能进行进入其他页面哦,建议打开授权）',
-          //   success: function (res) {
-          //     if (res.confirm) {
-          //       console.log('用户点击确定授权')
-          //       wx.openSetting({
-          //         success: (res) => {
-          //          console.log("小程序设置页面打开成功")
-          //         }
-          //       })
-              
-          //     } else if (res.cancel) {
-          //       console.log('用户点击取消授权');
-          //     }
-          //   }
-          // })
       }
     })
    
@@ -119,11 +102,13 @@ function getBirthday(that) {
       that.setData({
         days: num
       })
+      //设置全局变量days
+      app.days = num;
     }
   })
 }
 
-function getSession(code) {
+function saveSession(code) {
   wx.request({
     url: app.REQUEST_URL + '/api/information/session',
     method: 'GET',
@@ -182,7 +167,7 @@ function authSession(session){
     },
     fail:function(){
       wx.showToast({
-        title: 'session验证出错！',
+        title: 'session验证请求失败！',
       })
     }
   })

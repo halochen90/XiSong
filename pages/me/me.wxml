@@ -3,10 +3,13 @@
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text> 
   </view>
-   <view class="usermotto">
-    <text class="motto">{{motto}}</text>
+    <view class="timeView">
+      <view class="textView">
+        <text>宝宝破壳至今已</text>
+      </view>
+      <text class="dayNum">{{days}}</text>天
     </view>
-    <view class="uploadView" wx:if="{{isAdmin}}">
+    <view class="uploadView" wx:if="{{role == 1 || role == 2}}">
       <button class="publishButton" type="primary" bindtap="wantPublish">我要发布</button>  
       <button class="dealButton" type="default" bindtap="dealAuthApply">处理申请</button>  
    </view>

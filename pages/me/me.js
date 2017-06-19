@@ -5,28 +5,29 @@ var authTip = require("../../utils/authTip");
 
 Page({
   data: {
-    motto: '欢迎光临晨曦之歌..',
     images: [],
     userInfo:{},
-    isAdmin:false
+    role:0,
   },
   //加载函数
   onLoad: function () {
     console.log("me onload")
+    console.log("app days:" + app.days);
     var that = this;
     wx.getUserInfo({
       success: function (res) {
         // console.log("获取用户信息成功:",res)
         that.setData({
-          userInfo:res.userInfo
+          userInfo:res.userInfo,
+          days: app.days
         })
       },
       fail: function () {
         authTip.alertAuthTip("/pages/me/me");
       }
     })
-    //判断当前用户是否是管理员
-    isAdmin(that);
+    //判断当前用户的角色
+    getRole(that);
   },
   
   wantPublish: function () {
@@ -43,7 +44,7 @@ Page({
   }
 });
 
-function isAdmin(that){
+function getRole(that){
   wx.getStorage({
     key: 'session',
     success: function(res) {
@@ -58,13 +59,11 @@ function isAdmin(that){
           'content-type': 'application/json'
         },
         success:function(result){
-          console.log("isAdmin:",result.data.isAdmin);
-            var isAdmin = result.data.isAdmin;
-            if(isAdmin){
-              that.setData({
-                isAdmin:true
-              })
-            }
+          console.log("role:",result.data.role);
+            var role = result.data.role;
+            that.setData({
+              role:role
+            })
         }
       })
     },

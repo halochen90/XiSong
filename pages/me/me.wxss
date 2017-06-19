@@ -16,15 +16,6 @@
 .userinfo-nickname {
   color: #aaa;
 }
-.usermotto {
-  margin-top: 200rpx;
-  color: limegreen;
-}
-
-.motto{
-  font-size: 50rpx;
-  font-family: PingFangSC-Regular;
-}
 
 text {
   word-break: break-all; 
@@ -62,4 +53,25 @@ text {
 .dealButton{
   margin-top:60rpx;
   width:30%
+}
+
+.timeView{
+   display: flex;
+   justify-content:center;
+   align-items:center;
+   height: 200rpx;
+   font-size: 40rpx;
+   font-family: PingFangSC-Regular;
+   flex-wrap: wrap;
+   padding-top:50rpx;
+}
+.textView{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.dayNum{
+  font-size: 160rpx;
+  padding: 10rpx;
 }

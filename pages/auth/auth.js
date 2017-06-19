@@ -59,23 +59,7 @@ function sendAuthRequest(name, comment,formId){
       })
     },
     fail: function () {
-      console.log("session is null");
-      wx.showModal({
-        title: '授权提示！',
-        content: '需要您授权才能进行进入其他页面哦,建议打开授权）',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定授权')
-            wx.openSetting({
-              success: (res) => {
-               console.log("小程序设置页面打开成功")
-              }
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消授权');
-          }
-        }
-      })
+      console.log("session is null，需要重新登录");
     }
   })
  

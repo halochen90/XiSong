@@ -2,8 +2,10 @@
 var authTip = require("utils/authTip");
 App({
   REQUEST_URL: "https://request.halochen.com",
+  // REQUEST_URL: "https://localhost:8443",
+  days:0,
   globalData: {
-    userInfo: null
+    userInfo: null,
   },
   onLaunch: function () {
     var that = this
@@ -28,8 +30,8 @@ App({
 
   getUserInfo:function(cb){
     var that = this
-    if(this.globalData.userInfo){
-      typeof cb == "function" && cb(this.globalData.userInfo)
+    if(that.globalData.userInfo){
+      typeof cb == "function" && cb(that.globalData.userInfo)
     }else{
       console.log("登录态获取失败")
     }
