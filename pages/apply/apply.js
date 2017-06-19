@@ -38,6 +38,7 @@ Page({
   }
 })
 
+//获取需要验证的记录
 function getApplyRecords(that){
   wx.request({
     url: app.REQUEST_URL + '/api/information/apply',

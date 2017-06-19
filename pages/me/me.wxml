@@ -5,7 +5,7 @@
   </view>
     <view class="timeView">
       <view class="textView">
-        <text>宝宝破壳至今已</text>
+        <text>宝宝破壳而出已</text>
       </view>
       <text class="dayNum">{{days}}</text>天
     </view>
