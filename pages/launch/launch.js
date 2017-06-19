@@ -9,13 +9,17 @@ Page({
     birthday:'2017-9-1',
     days:0
   },
-
+  onShareAppMessage: function () {
+    return {
+      title: '宝宝在这呢，快来看看吧^_^',
+      path: '/pages/launch/launch'
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this;
-    console.log("launch onload..")
     wx.checkSession({//检查当前是否是登录态
       success: function () {
         console.log("当前是登录态");
@@ -121,10 +125,10 @@ function saveSession(code) {
       //把session存到本地
       wx.setStorage({
         key: 'session',
-        data: res.data.session ,
+        data: res.data.session,
       })
 
-      
+      app.SESSION = res.data.session      
     }
   })
 }

@@ -9,17 +9,15 @@ Page({
     records:[],
     currentIndex:1
   },
+  onShareAppMessage: function () {
+    return {
+      title: '宝宝在这呢，快来看看吧^_^',
+      path: '/pages/launch/launch'
+    }
+  },
   //事件处理函数
   onLoad: function () {
     var that = this;
-
-    //调用应用实例的方法获取全局数据
-    // app.getUserInfo(function(userInfo){
-    //   //更新数据
-    //   that.setData({
-    //     userInfo:userInfo
-    //   });
-    // })
   },
   // 每次进入页面都会调用
   onShow: function(){
@@ -79,6 +77,7 @@ function sendRequestRecords(currentIndex,that) {
     method: 'GET',
     data: {},
     header: {
+      'SESSION': app.SESSION,
       'content-type': 'application/json'
     },
     success: function (res) {

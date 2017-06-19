@@ -7,9 +7,13 @@ Page({
     currentIndex:1,
     totalPages:1
   },
-  //事件处理函数
-  onLoad: function () {
+  onShow: function () {
     var that = this;
+    that.setData({
+      images: [],
+      currentIndex: 1,
+      totalPages: 1
+    })
     sendRequestRecords(1, that);
   },
   //预览图片
@@ -60,6 +64,7 @@ function sendRequestRecords(currentIndex,that) {
     method: 'GET',
     data: {},
     header: {
+      'SESSION': app.SESSION,
       'content-type': 'application/json'
     },
     success: function (res) {

@@ -53,9 +53,10 @@ function getRole(that){
         url: app.REQUEST_URL + "/api/information/role",
         method:'GET',
         data:{
-          session:session
+         
         },
         header: {
+          'SESSION': app.SESSION,
           'content-type': 'application/json'
         },
         success:function(result){

@@ -12,6 +12,6 @@
   </view>
 
   <view class="buttonView">
-    <button type="primary" bindtap="watchPhoto">我要看宝宝萌照</button>
+    <button type="primary" bindtap="watchPhoto">我要看宝宝</button>
   </view>
 </view>

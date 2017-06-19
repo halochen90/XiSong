@@ -39,8 +39,9 @@ function sendAuthRequest(name, comment,formId){
       wx.request({
         url: app.REQUEST_URL + '/api/information/applyAuth',
         method: 'POST',
-        data: {name: name,comment:comment,formId:formId,session:session},
+        data: {name: name,comment:comment,formId:formId},
         header: {
+          session: app.SESSION,
           "content-type": "application/x-www-form-urlencoded;charset=UTF-8" 
         },
         success: function (res) {

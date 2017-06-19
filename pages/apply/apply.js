@@ -35,6 +35,7 @@ function getApplyRecords(that){
     method: 'GET',
     data:{},
     header:{
+      session: app.SESSION,
       'content-type':'application/json'
     },
     success:function(res){
@@ -51,6 +52,7 @@ function dealApplyAuth(isAuth, id, index,formId,that){
     method: 'PUT',
     data: {isAuth:isAuth,id:id,formId:formId},
     header: {
+      session: app.SESSION,
       'content-type': 'application/json'
     },
     success: function (res) {

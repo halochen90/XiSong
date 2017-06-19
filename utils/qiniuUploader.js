@@ -6,7 +6,8 @@ var config = {
     qiniuImageURLPrefix: '',
     qiniuUploadToken: '',
     qiniuUploadTokenURL: '',
-    qiniuUploadTokenFunction: null
+    qiniuUploadTokenFunction: null,
+    session:null
 }
 
 module.exports = {
@@ -43,6 +44,9 @@ function updateConfigWithOptions(options) {
     }
     if (options.domain) {
         config.qiniuImageURLPrefix = options.domain;
+    }
+    if (options.session){
+      config.session = options.session;
     }
 }
 
@@ -115,6 +119,9 @@ function doUpload(filePath, success, fail, options) {
 function getQiniuToken(callback) {
   wx.request({
     url: config.qiniuUploadTokenURL,
+    header:{
+      'SESSION': config.session
+    },
     success: function (res) {
       var token = res.data.uptoken;
       config.qiniuUploadToken = token;

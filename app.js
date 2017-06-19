@@ -3,6 +3,7 @@ var authTip = require("utils/authTip");
 App({
   REQUEST_URL: "https://request.halochen.com",
   // REQUEST_URL: "https://localhost:8443",
+  SESSION:'',
   days:0,
   globalData: {
     userInfo: null,
@@ -12,9 +13,6 @@ App({
     //调用登录接口
     wx.login({
       success: function (result) {
-        if (result.errMsg == 'login:ok') {
-          console.log(result.code);
-        }
         wx.getUserInfo({
           success: function (res) {
             that.globalData.userInfo = res.userInfo
@@ -25,6 +23,15 @@ App({
           }
         })
       }
+    }),
+
+    //设置SESSION全局变量
+    wx.getStorage({
+      key: 'session',
+      success: function(res) {
+        app.SESSION = res.data;
+        console.log("全局变量session："+app.SESSION)
+      },
     })
   },
 
@@ -35,12 +42,10 @@ App({
     }else{
       console.log("登录态获取失败")
     }
-  },
-  globalData:{
-    userInfo:null
   }
-
 })
 
 var app = getApp();
+
+
 

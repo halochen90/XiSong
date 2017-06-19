@@ -5,6 +5,7 @@ var app = getApp()
 // 初始化七牛相关参数
 function initQiniu() {
   var options = {
+    session:app.SESSION,
     region: 'ECN', // 华东区
     uptokenURL: app.REQUEST_URL + '/api/qiniu/token',
     domain: 'http://image.halochen.com/'
@@ -134,6 +135,7 @@ function sendRequest(params) {
       images:params.images
     },
     header: {
+      'SESSION': app.SESSION,
       'content-type': 'application/json'
     },
     success: function (res) {

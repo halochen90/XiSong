@@ -1,17 +1,34 @@
 <view class="bodyView">  
-<block wx:for="{{images}}" wx:key="imageId">
-  <view class ="secondImageView" wx:if="{{(index % 4 == 1)}}"  >
+  <view class ="imageInfo" wx:for="{{images}}" wx:key="imageId">
       <image src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{images}}">
       </image>
   </view>
 
- <view class ="thirdImageView" wx:elif="{{(index % 4 == 2)}}"  >
-       <image src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{images}}">
-       </image>
- </view>
+<!--如果最后一行不满，则补齐-->
+<block wx:if="{{(images.length % 4 == 1)}}">
+  <view class ="imageInfo">
+        <image class="image"></image>
+  </view>
+  <view  class ="imageInfo">
+        <image class="image"></image>
+  </view>
+  <view  class ="imageInfo">
+        <image class="image"></image>
+  </view>
+</block>
 
-  <view wx:else class="imageInfo">
-        <image  src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{images}}"></image>
+<block wx:if="{{(images.length % 4 == 2)}}">
+  <view  class ="imageInfo" >
+        <image class="image"></image>
+  </view>
+  <view  class ="imageInfo" >
+        <image class="image"></image>
+  </view>
+</block>
+
+<block wx:if="{{(images.length % 4 == 3)}}"> 
+  <view  class ="imageInfo">
+        <image class="image"></image>
   </view>
 </block>
 </view>
