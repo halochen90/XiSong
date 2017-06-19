@@ -7,13 +7,10 @@ Page({
     preUrl:"http://image.halochen.com/",
     recordPage:{},
     records:[],
-    currentIndex:1
+    currentIndex:1,
+    session:null
   },
   
-  //事件处理函数
-  onLoad: function () {
-    var that = this;
-  },
   // 每次进入页面都会调用
   onShow: function(){
     var that = this;
@@ -23,7 +20,16 @@ Page({
       records: [],
       currentIndex: 1
     })
-    sendRequestRecords(1, that);
+    wx.getStorage({
+      key: 'session',
+      success: function (res) {
+        that.setData({
+          session:res.data
+        })
+        sendRequestRecords(1, that);
+      },
+    })
+    
   },
   //预览图片
   checkImage: function (e) {
@@ -67,13 +73,13 @@ Page({
 
 //发送请求获取记录
 function sendRequestRecords(currentIndex,that) {
-  console.log("app.session:"+app.SESSION)
+  console.log("index session:"+that.data.session)
   wx.request({
     url: app.REQUEST_URL + '/api/records/currentIndex/'+ currentIndex,
     method: 'GET',
     data: {},
     header: {
-      'SESSION': app.SESSION,
+      'SESSION': that.data.session,
       'content-type': 'application/json'
     },
     success: function (res) {

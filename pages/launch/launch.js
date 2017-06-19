@@ -36,15 +36,6 @@ Page({
       }
     })
 
-
-    //调用应用实例的方法获取全局数据
-    // app.getUserInfo(function (userInfo) {
-    //   //更新数据
-    //   that.setData({
-    //     userInfo: userInfo
-    //   });
-    // })
-
     getBirthday(that);
   },
 
@@ -67,6 +58,9 @@ Page({
               wx.redirectTo({
                 url: '/pages/auth/auth',
               })
+            },
+            fail:function(res){
+              console.log("login fail",res);
             }
           })
       }
@@ -126,10 +120,7 @@ function saveSession(code) {
       wx.setStorage({
         key: 'session',
         data: res.data.session,
-      })
-
-      //设置全局变量SESSION
-      app.SESSION = res.data.session      
+      })   
     }
   })
 }

@@ -3,9 +3,9 @@ const qiniuUploader = require("../../utils/qiniuUploader");
 var app = getApp()
 
 // 初始化七牛相关参数
-function initQiniu() {
+function initQiniu(session) {
   var options = {
-    session:app.SESSION,
+    session:session,
     region: 'ECN', // 华东区
     uptokenURL: app.REQUEST_URL + '/api/qiniu/token',
     domain: 'http://image.halochen.com/'
@@ -23,6 +23,15 @@ Page({
   //加载函数
   onLoad: function () {
     var that = this;
+
+    wx.getStorage({
+      key: 'session',
+      success: function (res) {
+        that.setData({
+          session: res.data
+        })
+      },
+    }),
     app.getUserInfo(function (userInfo) {
       that.setData({
         nickName: userInfo.nickName
@@ -65,7 +74,7 @@ Page({
 
   cencelImage:function(e){
     var that = this;
-    var index = that.data.images.index;
+    var index = e.target.dataset.index;
     wx.showModal({
       title: '提示',
       content: '确定删除该图片？',
@@ -98,7 +107,7 @@ Page({
       return;
     }
 
-    initQiniu();
+    initQiniu(that.data.session);
     //构造一个参数对象
     var params = new Object();
     params.nickName = that.data.nickName;
@@ -111,7 +120,7 @@ Page({
       successTimes ++;
       if (successTimes == filePaths.length) {
         console.log("所有图片已经上传成功！")
-        sendRequest(params);
+        sendRequest(params,that);
       }
     }, (error) => {
       wx.showToast({
@@ -120,12 +129,12 @@ Page({
       console.error('error: ' + JSON.stringify(error));
     }, () => {
       //如果没有图片，只上传文字
-      sendRequest(params);
+      sendRequest(params,that);
     });
   }
 })
 
-function sendRequest(params) {
+function sendRequest(params,that) {
   wx.request({
     url: app.REQUEST_URL + '/api/records',
     method: 'POST',
@@ -135,7 +144,7 @@ function sendRequest(params) {
       images:params.images
     },
     header: {
-      'SESSION': app.SESSION,
+      'SESSION': that.data.session,
       'content-type': 'application/json'
     },
     success: function (res) {

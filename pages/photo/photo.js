@@ -14,7 +14,16 @@ Page({
       currentIndex: 1,
       totalPages: 1
     })
-    sendRequestRecords(1, that);
+    
+    wx.getStorage({
+      key: 'session',
+      success: function (res) {
+        that.setData({
+          session: res.data
+        })
+        sendRequestRecords(1, that);
+      },
+    })
   },
   //预览图片
   checkImage: function (e) {
@@ -64,7 +73,7 @@ function sendRequestRecords(currentIndex,that) {
     method: 'GET',
     data: {},
     header: {
-      'SESSION': app.SESSION,
+      'SESSION': that.data.session,
       'content-type': 'application/json'
     },
     success: function (res) {

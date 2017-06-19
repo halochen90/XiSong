@@ -15,7 +15,7 @@
        <li class="images">
          <view class="imageInfo">
            <image class="image" src="{{ image }}" data-src="{{ image }}" bindtap="checkImage" style="width: 160rpx;height: 160rpx;"></image>
-           <image class="cancel" src="../../images/cencel.png" bindtap="cencelImage" style="width: 36rpx;height: 36rpx;"></image>
+           <image class="cancel" src="../../images/cencel.png" bindtap="cencelImage" data-index="{{index}}"style="width: 36rpx;height: 36rpx;"></image>
          </view>
        </li>
      </ul>

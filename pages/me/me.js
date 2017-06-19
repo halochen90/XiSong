@@ -11,8 +11,6 @@ Page({
   },
   //加载函数
   onLoad: function () {
-    console.log("me onload")
-    console.log("app days:" + app.days);
     var that = this;
     wx.getUserInfo({
       success: function (res) {
@@ -56,7 +54,7 @@ function getRole(that){
          
         },
         header: {
-          'SESSION': app.SESSION,
+          'SESSION': session,
           'content-type': 'application/json'
         },
         success:function(result){
