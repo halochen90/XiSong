@@ -9,12 +9,7 @@ Page({
     records:[],
     currentIndex:1
   },
-  onShareAppMessage: function () {
-    return {
-      title: '宝宝在这呢，快来看看吧^_^',
-      path: '/pages/launch/launch'
-    }
-  },
+  
   //事件处理函数
   onLoad: function () {
     var that = this;
@@ -72,6 +67,7 @@ Page({
 
 //发送请求获取记录
 function sendRequestRecords(currentIndex,that) {
+  console.log("app.session:"+app.SESSION)
   wx.request({
     url: app.REQUEST_URL + '/api/records/currentIndex/'+ currentIndex,
     method: 'GET',

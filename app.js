@@ -23,16 +23,7 @@ App({
           }
         })
       }
-    }),
-
-    //设置SESSION全局变量
-    wx.getStorage({
-      key: 'session',
-      success: function(res) {
-        app.SESSION = res.data;
-        console.log("全局变量session："+app.SESSION)
-      },
-    })
+    })  
   },
 
   getUserInfo:function(cb){
@@ -45,7 +36,6 @@ App({
   }
 })
 
-var app = getApp();
 
 
 

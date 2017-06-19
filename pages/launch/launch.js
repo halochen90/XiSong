@@ -128,6 +128,7 @@ function saveSession(code) {
         data: res.data.session,
       })
 
+      //设置全局变量SESSION
       app.SESSION = res.data.session      
     }
   })
