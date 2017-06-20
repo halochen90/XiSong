@@ -6,7 +6,8 @@
     "pages/imgup/imgup",
     "pages/me/me",
     "pages/auth/auth",
-    "pages/apply/apply"
+    "pages/apply/apply",
+    "pages/changeImg/changeImg"
   ],
   "window": {
     "backgroundTextStyle": "light",

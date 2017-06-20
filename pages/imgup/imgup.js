@@ -17,8 +17,7 @@ function initQiniu(session) {
 
 Page({
   data: {
-    images: [],
-    nickName: ''
+    images: []
   },
   //加载函数
   onLoad: function () {
@@ -31,17 +30,12 @@ Page({
           session: res.data
         })
       },
-    }),
-    app.getUserInfo(function (userInfo) {
-      that.setData({
-        nickName: userInfo.nickName
-      })
     })
   },
   chooseImg:function () {
    var that = this
    wx.chooseImage({
-    cuont: 9,
+    count: 9,
     sourceType: ['album', 'camera'],
     sizeType: ['original', 'compressed'],
     success: function(res) {

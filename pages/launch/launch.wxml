@@ -1,7 +1,7 @@
 <!--launch.wxml-->
 <view class="bodyView"> 
   <view class="avatarView">
-    <image class='avatarImg' src="http://www.yyhlmm.com/uploads/image/20170226/20170226122023_43733.jpg"></image>
+    <image class='avatarImg' src="{{myHeadImg}}"></image>
   </view>
 
   <view class="timeView">

@@ -14,17 +14,26 @@
     </view>
     </view>
     <view class="buttonItem">
-    <form bindsubmit="dealApply" report-submit="true">
-      <input hidden="true" name="param" value="1" />
-      <input hidden="true" name="index" value="{{index}}" />
-      <input hidden="true" name="id" value="{{record.id}}" />
-      <button class="accept" type="primary" formType="submit">通过</button>
+      <form bindsubmit="dealApply" report-submit="true">
+        <input hidden="true" name="param" value="1" />
+        <input hidden="true" name="index" value="{{index}}" />
+        <input hidden="true" name="id" value="{{record.id}}" />
+        <button class="accept" type="primary" formType="submit">通过</button>
       </form>
 
-      <button type="warn" formType="submit"
-      data-param="-1" data-index="{{index}}" data-record="{{record}}">拒绝</button>
-      <button type="default" formType="submit"
-      data-param="-2" data-index="{{index}}" data-record="{{record}}">永久拒绝</button>
+      <form bindsubmit="dealApply" report-submit="true">
+        <input hidden="true" name="param" value="-1" />
+        <input hidden="true" name="index" value="{{index}}" />
+        <input hidden="true" name="id" value="{{record.id}}" />
+        <button class="warnBtn" type="warn" formType="submit">拒绝</button>
+      </form>
+
+      <form bindsubmit="dealApply" report-submit="true">
+        <input hidden="true" name="param" value="-2" />
+        <input hidden="true" name="index" value="{{index}}" />
+        <input hidden="true" name="id" value="{{record.id}}" />
+        <button class="defaultBtn" type="default" formType="submit">永久拒绝</button>
+      </form>
       
     </view>
   </view>

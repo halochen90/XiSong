@@ -15,6 +15,7 @@
         </view>
         <view class="buttonView">
           <button class="authButton" type="primary" formType='submit'>申请授权</button>
+          
       </view>
       </form>
     </view>

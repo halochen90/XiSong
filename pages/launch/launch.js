@@ -1,4 +1,5 @@
 // launch.js
+var Util = require('../../utils/util.js');
 var app = getApp();
 Page({
 
@@ -7,7 +8,8 @@ Page({
    */
   data: {
     birthday:'2017-9-1',
-    days:0
+    days:0,
+    imagePre: app.IMAGE_DOMAIN
   },
   onShareAppMessage: function () {
     return {
@@ -20,23 +22,45 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+
     wx.checkSession({//检查当前是否是登录态
       success: function () {
         console.log("当前是登录态");
+        wx.getStorage({
+          key: 'session',
+          success: function(res) {
+            console.log("登录态,session:"+res.data)
+          },
+        })
       },
       fail: function () {
+        console.log("当前不是登录状态，发起登录接口请求session")
         //调用登录接口
         wx.login({
           success: function (loginRes) {
             //发起请求获取登录态
             console.log("code:" + loginRes.code);
-            saveSession(loginRes.code);
+            Util.saveSession(loginRes.code);
           }
         })
       }
-    })
+    }),
+  
+  //先从缓存里取
+   wx.getStorage({
+     key: 'headImg',
+     success: function(res) {
+       console.log("从缓存获取headImg:"+res.data);
+       that.setData({
+         myHeadImg:res.data
+       })
+     },
+     fail: function(){
+       Util.getHeadImg(that)
+     }
+   })
 
-    getBirthday(that);
+    getBirthday(that)
   },
 
   watchPhoto: function(){
@@ -54,7 +78,7 @@ Page({
             success: function (loginRes) {
               //发起请求获取登录态
               console.log("code:" + loginRes.code);
-              saveSession(loginRes.code);
+              Util.saveSession(loginRes.code);
               wx.redirectTo({
                 url: '/pages/auth/auth',
               })
@@ -106,24 +130,6 @@ function getBirthday(that) {
   })
 }
 
-function saveSession(code) {
-  wx.request({
-    url: app.REQUEST_URL + '/api/information/session',
-    method: 'GET',
-    data: { "code": code },
-    header: {
-      'content-type': 'application/json'
-    },
-    success: function (res) {
-      console.log("请求返回的session:" + res.data.session);
-      //把session存到本地
-      wx.setStorage({
-        key: 'session',
-        data: res.data.session,
-      })   
-    }
-  })
-}
 
 function authSession(session){
   console.log("authSession:",session)
@@ -135,39 +141,51 @@ function authSession(session){
       'content-type':'application/json'
     },
     success:function(res){
+      console.log("authSession结果，res:"+res)
       if(res.data.result){//验证成功，已授权
         wx.switchTab({
           url: '/pages/index/index'
         })
       }else{//验证失败,未授权
+        console.log("isAuth:" + res.data.isAuth);
         if (res.data.isAuth == 0){
           console.log("身份验证失败，跳转到验证页面");
           wx.navigateTo({
             url: '/pages/auth/auth'
           }) 
+        }else if (res.data.isAuth == 2) {
+          wx.showToast({
+            title: '授权中，请耐心等待授权结果',
+          })
         }else if(res.data.isAuth == -1){
-            wx.showToast({
-              title: '很遗憾，您的授权申请已被拒绝',
+            // wx.showToast({
+            //   title: '很遗憾，您的授权申请已被拒绝',
+            // })
+            wx.showModal({
+              title: '提示',
+              content: '很遗憾，您的授权申请被拒绝了，是否再次发起申请？',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('再次发起申请,跳转到验证页面')
+                  wx.navigateTo({
+                    url: '/pages/auth/auth',
+                  })
+                } else if (res.cancel) {
+                  console.log("不选择再次发起申请")
+                }
+              }
             })
         }else if(res.data.isAuth == -2){
           wx.showToast({
-            title: '很遗憾，您没有权限访问其他页面',
+            title: '很遗憾，您没有权限访问此小程序',
           })
         }else{//session不匹配，重新登录
+          console.log("session不匹配，重新登录")
           wx.login({
             success: function (loginRes) {
               //发起请求获取登录态
               console.log("code:" + loginRes.code);
-              saveSession(loginRes.code);
-              //判断权限
-              wx.getStorage({
-                key: 'session',
-                success: function(res) {
-                  //验证session
-                  authSession(res.data);
-                },
-              })
-              
+              Util.saveSession(loginRes.code);    
             }
           })
         }

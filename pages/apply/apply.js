@@ -32,9 +32,8 @@ Page({
     var isAuth = e.detail.value.param;
     var id = e.detail.value.id;
     var index = e.detail.value.index;
-    var formId = e.detail.formId;
     console.log("isAuth:" + isAuth+",id:"+id +",index:"+index);
-    dealApplyAuth(isAuth, id, index,formId,that);
+    dealApplyAuth(isAuth, id, index ,that);
   }
 })
 
@@ -49,6 +48,7 @@ function getApplyRecords(that){
       'content-type':'application/json'
     },
     success:function(res){
+      console.log("返回的需要验证的记录，data:",res.data)
       that.setData({
         applyRecords: res.data
       })
@@ -56,11 +56,11 @@ function getApplyRecords(that){
   })
 }
 
-function dealApplyAuth(isAuth, id, index,formId,that){
+function dealApplyAuth(isAuth, id, index,that){
   wx.request({
     url: app.REQUEST_URL + '/api/information/dealAuthApply',
     method: 'PUT',
-    data: {isAuth:isAuth,id:id,formId:formId},
+    data: {isAuth:isAuth,id:id},
     header: {
       session: that.data.session,
       'content-type': 'application/json'

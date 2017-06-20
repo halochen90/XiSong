@@ -27,6 +27,20 @@ Page({
     //判断当前用户的角色
     getRole(that);
   },
+
+//每次打开页面都会触发
+  onShow: function(){
+    var that = this;
+    wx.getStorage({
+      key: 'session',
+      success: function (res) {
+        that.setData({
+          session: res.data
+        })
+        sendRequestApplyNum(that);
+      },
+    })
+  },
   
   wantPublish: function () {
     var that = this;
@@ -39,6 +53,12 @@ Page({
     wx.navigateTo({
       url: '/pages/apply/apply',
     })
+  },
+  changeImg: function(){
+    var that = this;
+    wx.navigateTo({
+      url: '/pages/changeImg/changeImg',
+    })
   }
 });
 
@@ -50,9 +70,6 @@ function getRole(that){
       wx.request({
         url: app.REQUEST_URL + "/api/information/role",
         method:'GET',
-        data:{
-         
-        },
         header: {
           'SESSION': session,
           'content-type': 'application/json'
@@ -66,5 +83,23 @@ function getRole(that){
         }
       })
     },
+  })
+}
+
+function sendRequestApplyNum(that){
+  wx.request({
+    url: app.REQUEST_URL + "/api/information/apply/totalNum",
+    method: 'GET',
+    header: {
+      'SESSION': that.data.session,
+      'content-type': 'application/json'
+    },
+    success: function (result) {
+      console.log("totalNum:", result.data.totalNum);
+      var applyNum = result.data.totalNum;
+      that.setData({
+        applyNum: applyNum
+      })
+    }
   })
 }

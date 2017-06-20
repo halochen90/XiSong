@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view class="feedbackContainer" catchtouchmove="doNothing">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+
+   <view class="commentView">
+      <view class="headImg">
+        <image mode="aspectFit" src="{{myHeadImg}}"></image>
+      </view>
+   </view>
+
+   <view class="imageBox">
+
+    <view wx:if="{{images.length == 0}}" class="addBox" bindtap="chooseImg">
+      <image class="addImage" src="../../images/addImage.png" style="width: 160rpx;height: 160rpx;"></image>
+    </view>
+
+     <ul class="imageList" wx:for="{{ images }}" wx:for-item="image" wx:key="imageURL">
+       <li class="images">
+         <view class="imageInfo">
+           <image mode="aspectFit" class="newImage" src="{{ image }}" data-src="{{ image }}" bindtap="checkImage"></image>
+           <image class="cancel" src="../../images/cencel.png" bindtap="cencelImage" data-index="{{index}}"style="width: 36rpx;height: 36rpx;"></image>
+         </view>
+       </li>
+     </ul>
+   </view>
+   <button formType='submit' class="feedbackBtn" disabled="{{disabled}}">提交</button>
+
+ </form>
+</view>

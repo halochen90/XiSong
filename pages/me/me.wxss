@@ -44,6 +44,7 @@ text {
   position: absolute;
   bottom:160rpx;
   width:100%;
+  text-align:center;
 }
 
 .publishButton{
@@ -53,6 +54,11 @@ text {
 .dealButton{
   margin-top:60rpx;
   width:30%
+}
+.applyNum{
+  display:block;
+  margin-top:20rpx; 
+  font-family: PingFangSC-Regular;
 }
 
 .timeView{
@@ -74,4 +80,11 @@ text {
 .dayNum{
   font-size: 160rpx;
   padding: 10rpx;
+}
+.bottomView{
+  position: absolute;
+  bottom:2rpx;
+  width:100%;
+  display:flex;
+  justify-content:center;
 }

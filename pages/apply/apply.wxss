@@ -10,7 +10,7 @@
   color:lightgrey;
 }
 .value{
-  color:white
+  color:white;
 }
 .recordView{
   padding:20rpx;
@@ -22,5 +22,9 @@
   width: 100%
 }
 .accept{
-  width:240rpx;
+  width:300rpx;
 }
+.buttonItem{
+  justify-content: space-between;
+}
+

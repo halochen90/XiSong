@@ -7,6 +7,7 @@ Page({
   },
 
   submitForm: function(e){
+    console.log("提交授权表单返回对象e:", e);
     console.log("提交授权表单formId:",e.detail.formId);
     var formId = e.detail.formId;
     var name = e.detail.value.name;
