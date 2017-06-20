@@ -45,20 +45,8 @@ Page({
         })
       }
     }),
-  
-  //先从缓存里取
-   wx.getStorage({
-     key: 'headImg',
-     success: function(res) {
-       console.log("从缓存获取headImg:"+res.data);
-       that.setData({
-         myHeadImg:res.data
-       })
-     },
-     fail: function(){
-       Util.getHeadImg(that)
-     }
-   })
+  //获取首图
+    getHeadImage(that);
 
     getBirthday(that)
   },
@@ -198,4 +186,15 @@ function authSession(session){
       })
     }
   })
+}
+
+function getHeadImage(that){
+  var headImg = wx.getStorageSync("headImg");
+  if(headImg){
+    that.setData({
+      myHeadImg: headImg
+    })
+  }else{
+    Util.getHeadImg(that)
+  }
 }

@@ -1,7 +1,7 @@
 <!--launch.wxml-->
 <view class="bodyView"> 
   <view class="avatarView">
-    <image class='avatarImg' src="{{myHeadImg}}"></image>
+    <image mode="aspectFit" class='avatarImg' src="{{myHeadImg}}"></image>
   </view>
 
   <view class="timeView">
