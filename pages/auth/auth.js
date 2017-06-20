@@ -15,14 +15,16 @@ Page({
     var nameLen = name.replace(/(^\s*)|(\s*$)/g, "").length;
     if (name.length > 4 || nameLen == 0){
       wx.showToast({
-        title: '名字长度要求为1-4个字！'
+        title: '名字长度要求为1-4个字！',
+        image: "../../images/wrong.png"
       })
     return;
     }
     var commentLen = comment.replace(/(^\s*)|(\s*$)/g, "").length;
     if(comment.length > 50){
       wx.showToast({
-        title: '备注长度不能超过50个字！'
+        title: '备注长度不能超过50个字！',
+        image: "../../images/wrong.png"
       })
       return;
     }
@@ -31,6 +33,7 @@ Page({
   }
 })
 
+//发起验证请求，isAuth设为2
 function sendAuthRequest(name, comment,formId){
   console.log("name:" + name + ",comment:" + comment +",formId:"+formId);
   wx.getStorage({
@@ -40,7 +43,7 @@ function sendAuthRequest(name, comment,formId){
       wx.request({
         url: app.REQUEST_URL + '/api/information/applyAuth',
         method: 'POST',
-        data: {name: name,comment:comment,formId:formId},
+        data: {name:name,comment:comment,formId:formId},
         header: {
           session: session,
           "content-type": "application/x-www-form-urlencoded;charset=UTF-8" 

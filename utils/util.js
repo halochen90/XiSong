@@ -49,39 +49,23 @@ function saveSession(code) {
 
 //获取首图
 function getHeadImg(that){
-  wx.getStorage({
-    key: 'session',
-    success: function(res) {
-      var session = res.data;
-      wx.request({
-        url: app.REQUEST_URL + '/api/images/headImg',
-        method: 'GET',
-        data: {},
-        header: {
-          'SESSION': session,
-          'content-type': 'application/json'
-        },
-        success: function (res) {
-          console.log("res:",res.data);
-          var myHeadImg = app.IMAGE_DOMAIN + res.data.image.name;
-          that.setData({
-            headImg:res.data.image,
-            myHeadImg: myHeadImg
-          })
-          wx.setStorageSync("headImg", myHeadImg);
-        }
+  wx.request({
+    url: app.REQUEST_URL + '/api/images/headImg',
+    method: 'GET',
+    data: {},
+    header: {
+      'content-type': 'application/json'
+    },
+    success: function (res) {
+      console.log("res:",res.data);
+      var myHeadImg = app.IMAGE_DOMAIN + res.data.image.name;
+      that.setData({
+        headImg:res.data.image,
+        myHeadImg: myHeadImg
       })
-    },fail:function(res){
-      wx.login({
-        success: function (loginRes) {
-          //发起请求获取登录态
-          console.log("code:" + loginRes.code);
-          saveSession(loginRes.code);
-        }
-      })
+      wx.setStorageSync("headImg", myHeadImg);
     }
-  })
- 
+  }) 
 }
 
 module.exports = {

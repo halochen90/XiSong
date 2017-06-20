@@ -19,6 +19,7 @@ Page({
   },
   /**
    * 生命周期函数--监听页面加载
+   * 页面加载完毕，还没有生成session
    */
   onLoad: function (options) {
     var that = this;
@@ -31,6 +32,9 @@ Page({
           success: function(res) {
             console.log("登录态,session:"+res.data)
           },
+          fail: function(res){
+            console.log("登录态session获取失败：",res);
+          }
         })
       },
       fail: function () {
@@ -51,6 +55,7 @@ Page({
     getBirthday(that)
   },
 
+//第一次调用这个方法生成session
   watchPhoto: function(){
     var that = this;
     //获取本地缓存的session
@@ -66,6 +71,7 @@ Page({
             success: function (loginRes) {
               //发起请求获取登录态
               console.log("code:" + loginRes.code);
+              //生成session
               Util.saveSession(loginRes.code);
               wx.redirectTo({
                 url: '/pages/auth/auth',
