@@ -32,21 +32,22 @@ function init(options) {
 }
 
 function updateConfigWithOptions(options) {
-    if (options.qiniuRegion) {
-      config.qiniuRegion = options.qiniuRegion;
-    } else {
-        console.error('qiniu uploader need your bucket region');
-    }
-    if (options.uptoken) {
-        config.qiniuUploadToken = options.uptoken;
-    } else if (options.uptokenURL) {
-        config.qiniuUploadTokenURL = options.uptokenURL;
-    } else if(options.uptokenFunc) {
-        config.qiniuUploadTokenFunction = options.uptokenFunc;
-    }
-    if (options.domain) {
-        config.qiniuImageURLPrefix = options.domain;
-    }
+
+    // if (options.qiniuRegion) {
+    //   config.qiniuRegion = options.qiniuRegion;
+    // } else {
+    //     console.error('qiniu uploader need your bucket region');
+    // }
+    // if (options.uptoken) {
+    //     config.qiniuUploadToken = options.uptoken;
+    // } else if (options.uptokenURL) {
+    //     config.qiniuUploadTokenURL = options.uptokenURL;
+    // } else if(options.uptokenFunc) {
+    //     config.qiniuUploadTokenFunction = options.uptokenFunc;
+    // }
+    // if (options.domain) {
+    //     config.qiniuImageURLPrefix = options.domain;
+    // }
     if (options.session){
       config.session = options.session;
     }
