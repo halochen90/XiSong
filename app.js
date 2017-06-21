@@ -1,10 +1,11 @@
 //app.js
 var authTip = require("utils/authTip");
 App({
-  // REQUEST_URL: "https://request.halochen.com",
-  REQUEST_URL: "https://192.168.0.31:8443",
-  // IMAGE_DOMAIN: "https://resource.halochen.com/",
-  IMAGE_DOMAIN: "http://image.halochen.com/",
+  REQUEST_URL: "https://request.halochen.com",
+  // REQUEST_URL: "https://192.168.0.31:8443",
+  // REQUEST_URL: "https://localhost:8443",
+  IMAGE_DOMAIN: "https://resource.halochen.com/",
+  // IMAGE_DOMAIN: "http://image.halochen.com/",
   SESSION:'',
   days:0,
   globalData: {

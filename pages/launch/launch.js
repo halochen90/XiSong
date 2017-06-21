@@ -22,7 +22,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-
     wx.checkSession({//检查当前是否是登录态
       success: function () {
         console.log("当前是登录态");
@@ -33,6 +32,16 @@ Page({
           },
           fail: function(res){
             console.log("登录态session获取失败：",res);
+            wx.login({
+              success: function (loginRes) {
+                //生成session
+                console.log("登录态获取session并保存")
+                Util.saveSession(loginRes.code);
+              },
+              fail: function (res) {
+                console.log("login fail", res);
+              }
+            })
           }
         })
       },
@@ -65,16 +74,16 @@ Page({
         authSession(res.data);
       },
       fail: function(){
-          console.log("session is null");
+          console.log("watchphoto： session is null");
           wx.login({
             success: function (loginRes) {
               //发起请求获取登录态
-              console.log("code:" + loginRes.code);
+              console.log("watchphoto code:" + loginRes.code);
               //生成session
               Util.saveSession(loginRes.code);
-              wx.redirectTo({
-                url: '/pages/auth/auth',
-              })
+              // wx.navigateTo({
+              //   url: '/pages/auth/auth',
+              // })
             },
             fail:function(res){
               console.log("login fail",res);
