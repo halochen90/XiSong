@@ -109,6 +109,9 @@ Page({
     //console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
     var filePaths = that.data.images;
     if (filePaths.length < 1) {
+      that.setData({
+        disabled: false
+      })
       wx.showToast({
         title: '请选择一张图片！',
       })
