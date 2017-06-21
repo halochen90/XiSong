@@ -5,6 +5,7 @@ var authTip = require("../../utils/authTip");
 
 Page({
   data: {
+    welcome: '欢迎光临晨曦之歌..',
     images: [],
     userInfo:{},
     role:0,
@@ -14,7 +15,7 @@ Page({
     var that = this;
     wx.getUserInfo({
       success: function (res) {
-        // console.log("获取用户信息成功:",res)
+        // //console.log("获取用户信息成功:",res)
         that.setData({
           userInfo:res.userInfo,
           days: app.days
@@ -75,7 +76,7 @@ function getRole(that){
           'content-type': 'application/json'
         },
         success:function(result){
-          console.log("role:",result.data.role);
+          //console.log("role:",result.data.role);
             var role = result.data.role;
             that.setData({
               role:role
@@ -95,7 +96,7 @@ function sendRequestApplyNum(that){
       'content-type': 'application/json'
     },
     success: function (result) {
-      console.log("totalNum:", result.data.totalNum);
+      //console.log("totalNum:", result.data.totalNum);
       var applyNum = result.data.totalNum;
       that.setData({
         applyNum: applyNum

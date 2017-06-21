@@ -1,6 +1,6 @@
 <view class="bodyView">  
   <view class ="imageInfo" wx:for="{{images}}" wx:key="imageId">
-      <image src="{{preUrl}}{{item.name}}" class="image" bindtap="checkImage" data-preurl="{{preUrl}}" data-src="{{preUrl}}{{item.name}}" data-images="{{images}}">
+      <image src="{{item.name}}" class="image" bindtap="checkImage"  data-src="{{item.name}}" data-images="{{images}}">
       </image>
   </view>
 

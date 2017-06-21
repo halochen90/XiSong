@@ -18,4 +18,7 @@
     <view class="bottomView"  wx:if="{{role == 1 || role == 2}}">
         <button class="imageButton" type="default" bindtap="changeImg">更换首图</button>
     </view>
+    <view class="welcomeView" wx:else>
+          <text class="welcome">{{welcome}}</text>
+    </view>
 </view>

@@ -5,13 +5,10 @@ var app = getApp()
 // 初始化七牛相关参数
 function initQiniu(session) {
   var options = {
-    session:session,
-    region: 'ECN', // 华东区
-    uptokenURL: app.REQUEST_URL + '/api/qiniu/token',
-    domain: 'http://image.halochen.com/'
+    session:session
   };
   qiniuUploader.init(options);
-  // console.log(options.uptokenURL)
+  // //console.log(options.uptokenURL)
 }
 
 
@@ -58,10 +55,10 @@ Page({
      current: current,
      urls: this.data.images,
         success: function(res) {
-          console.log(res);
+          //console.log(res);
         },
         fail: function() {
-          console.log('fail')
+          //console.log('fail')
         }
    })
  },
@@ -90,7 +87,7 @@ Page({
     that.setData({
       disabled:true
     })
-    console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
+    //console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
     var filePaths = that.data.images;
     var comment = e.detail.value.comment;
     var len = comment.replace(/(^\s*)|(\s*$)/g, "").length;
@@ -113,14 +110,14 @@ Page({
       params.images.push(res.key);
       successTimes ++;
       if (successTimes == filePaths.length) {
-        console.log("所有图片已经上传成功！")
+        //console.log("所有图片已经上传成功！")
         sendRequest(params,that);
       }
     }, (error) => {
       wx.showToast({
         title: '图片上传失败！'
       })
-      console.error('error: ' + JSON.stringify(error));
+      //console.error('error: ' + JSON.stringify(error));
     }, () => {
       //如果没有图片，只上传文字
       sendRequest(params,that);

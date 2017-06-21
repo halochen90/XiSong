@@ -27,12 +27,12 @@ Page({
   },
 
   dealApply:function(e){
-    console.log(e)
+    ////console.log(e)
     var that = this;
     var isAuth = e.detail.value.param;
     var id = e.detail.value.id;
     var index = e.detail.value.index;
-    console.log("isAuth:" + isAuth+",id:"+id +",index:"+index);
+    //console.log("isAuth:" + isAuth+",id:"+id +",index:"+index);
     dealApplyAuth(isAuth, id, index ,that);
   }
 })
@@ -48,7 +48,7 @@ function getApplyRecords(that){
       'content-type':'application/json'
     },
     success:function(res){
-      console.log("返回的需要验证的记录，data:",res.data)
+      //console.log("返回的需要验证的记录，data:",res.data)
       that.setData({
         applyRecords: res.data
       })
@@ -66,7 +66,7 @@ function dealApplyAuth(isAuth, id, index,that){
       'content-type': 'application/json'
     },
     success: function (res) {
-      console.log("apply auth:"+res.data)
+      //console.log("apply auth:"+res.data)
       if(res.data.result == "success"){//返回success
         var records = that.data.applyRecords;
         records.splice(index,1);

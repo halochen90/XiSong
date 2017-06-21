@@ -88,3 +88,9 @@ text {
   display:flex;
   justify-content:center;
 }
+.welcomeView{
+  font-family: PingFangSC-Regular;
+  color:#1fc516;
+  font-size:46rpx;
+  margin-top:250rpx;
+}

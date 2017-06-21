@@ -3,7 +3,7 @@ var authTip = require("utils/authTip");
 App({
   REQUEST_URL: "https://request.halochen.com",
   // REQUEST_URL: "https://192.168.0.31:8443",
-  IMAGE_DOMAIN: "http://image.halochen.com/",
+  IMAGE_DOMAIN: "https://resource.halochen.com/",
   SESSION:'',
   days:0,
   globalData: {
@@ -32,7 +32,7 @@ App({
     if(that.globalData.userInfo){
       typeof cb == "function" && cb(that.globalData.userInfo)
     }else{
-      console.log("登录态获取失败")
+      //console.log("登录态获取失败")
     }
   }
 })

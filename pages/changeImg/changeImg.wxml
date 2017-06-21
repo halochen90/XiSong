@@ -4,7 +4,7 @@
 
    <view class="commentView">
       <view class="headImg">
-        <image mode="aspectFit" src="{{myHeadImg}}"></image>
+        <image mode="aspectFit" style="opacity:0.5" src="{{myHeadImg}}"></image>
       </view>
    </view>
 
@@ -23,7 +23,7 @@
        </li>
      </ul>
    </view>
-   <button formType='submit' class="feedbackBtn" disabled="{{disabled}}">提交</button>
+   <button formType='submit' class="feedbackBtn" disabled="{{disabled}}">更换新首图</button>
 
  </form>
 </view>

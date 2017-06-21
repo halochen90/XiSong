@@ -1,6 +1,8 @@
 // created by gpake
 (function() {
 
+var app = getApp();
+
 var config = {
     qiniuRegion: '',
     qiniuImageURLPrefix: '',
@@ -20,10 +22,10 @@ module.exports = {
 // 如果需要变更参数，再调用 init 即可
 function init(options) {
     config = {
-        qiniuRegion: '',
-        qiniuImageURLPrefix: '',
+        qiniuRegion: 'ECN',
+        qiniuImageURLPrefix: app.IMAGE_DOMAIN,//资源domain
         qiniuUploadToken: '',
-        qiniuUploadTokenURL: '',
+        qiniuUploadTokenURL: app.REQUEST_URL + '/api/qiniu/token',
         qiniuUploadTokenFunction: null
     };
     updateConfigWithOptions(options);

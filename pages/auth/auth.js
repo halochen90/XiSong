@@ -7,8 +7,8 @@ Page({
   },
 
   submitForm: function(e){
-    console.log("提交授权表单返回对象e:", e);
-    console.log("提交授权表单formId:",e.detail.formId);
+    ////console.log("提交授权表单返回对象e:", e);
+    //console.log("提交授权表单formId:",e.detail.formId);
     var formId = e.detail.formId;
     var name = e.detail.value.name;
     var comment = e.detail.value.comment;
@@ -35,7 +35,7 @@ Page({
 
 //发起验证请求，isAuth设为2
 function sendAuthRequest(name, comment,formId){
-  console.log("name:" + name + ",comment:" + comment +",formId:"+formId);
+  //console.log("name:" + name + ",comment:" + comment +",formId:"+formId);
   wx.getStorage({
     key: 'session',
     success: function (res) {
@@ -49,7 +49,7 @@ function sendAuthRequest(name, comment,formId){
           "content-type": "application/x-www-form-urlencoded;charset=UTF-8" 
         },
         success: function (res) {
-            console.log("已发送授权申请")
+            //console.log("已发送授权申请")
             wx.showModal({
               title: '提示',
               content: '授权申请发送成功，请耐心等待授权结果',
@@ -64,7 +64,7 @@ function sendAuthRequest(name, comment,formId){
       })
     },
     fail: function () {
-      console.log("session is null，需要重新登录");
+      //console.log("session is null，需要重新登录");
     }
   })
  

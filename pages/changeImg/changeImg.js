@@ -7,13 +7,10 @@ var app = getApp()
 // 初始化七牛相关参数
 function initQiniu(session) {
   var options = {
-    session: session,
-    region: 'ECN', // 华东区
-    uptokenURL: app.REQUEST_URL + '/api/qiniu/token',
-    domain: 'http://image.halochen.com/'
+    session: session
   };
   qiniuUploader.init(options);
-  // console.log(options.uptokenURL)
+  // //console.log(options.uptokenURL)
 }
 
 
@@ -25,7 +22,14 @@ Page({
   onLoad: function () {
     var that = this;
 
-    Util.getHeadImg(that);
+    wx.getStorage({
+      key: 'headImg',
+      success: function(res) {
+        that.setData({
+          myHeadImg:res.data
+        })
+      },
+    })
 
     wx.getStorage({
       key: 'session',
@@ -69,10 +73,10 @@ Page({
       current: current,
       urls: this.data.images,
       success: function (res) {
-        console.log(res);
+        //console.log(res);
       },
       fail: function () {
-        console.log('fail')
+        //console.log('fail')
       }
     })
   },
@@ -102,7 +106,7 @@ Page({
     that.setData({
       disabled: true
     })
-    console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
+    //console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
     var filePaths = that.data.images;
     if (filePaths.length < 1) {
       wx.showToast({
@@ -121,14 +125,14 @@ Page({
       param.image = res.key;
       successTimes++;
       if (successTimes == filePaths.length) {
-        console.log("所有图片已经上传成功！")
+        //console.log("所有图片已经上传成功！")
         sendRequest(param, that);
       }
     }, (error) => {
       wx.showToast({
         title: '图片上传失败！'
       })
-      console.error('error: ' + JSON.stringify(error));
+      //console.error('error: ' + JSON.stringify(error));
     }, () => {
       //如果没有图片，只上传文字
       sendRequest(param, that);
@@ -149,8 +153,8 @@ function sendRequest(param, that) {
     },
     success: function (res) {
       //更新缓存
-      console.log("更新缓存headImg:" + app.IMAGE_DOMAIN + param.image);
-      wx.setStorageSync("headImg", app.IMAGE_DOMAIN + param.image);
+      //console.log("更新缓存headImg:" + param.image);
+      wx.setStorageSync("headImg", param.image);
       //返回首页
       if(res.data){//true
         wx.navigateTo({

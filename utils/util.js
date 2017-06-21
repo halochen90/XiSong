@@ -33,7 +33,7 @@ function saveSession(code) {
       'content-type': 'application/json'
     },
     success: function (res) {
-      console.log("请求返回的session:" + res.data.session);
+      //console.log("请求返回的session:" + res.data.session);
       //把session存到本地
       wx.setStorage({
         key: 'session',
@@ -41,7 +41,7 @@ function saveSession(code) {
       })
     },
     fail: function (res) {
-      console.log("请求session失败,res:" + res);
+      //console.log("请求session失败,res:" + res);
     }
   })
 }
@@ -57,13 +57,28 @@ function getHeadImg(that){
       'content-type': 'application/json'
     },
     success: function (res) {
-      console.log("res:",res.data);
-      var myHeadImg = app.IMAGE_DOMAIN + res.data.image.name;
-      that.setData({
-        headImg:res.data.image,
-        myHeadImg: myHeadImg
+      // //console.log("res:",res.data);
+      var myHeadImg = res.data.imageName;
+      wx.getStorage({
+        key: 'headImg',
+        success: function(res) {
+          var oldHeadImg = res.data;
+          if(myHeadImg != oldHeadImg){//如果首图和缓存里的不一样，则更新首图，并更新缓存
+            //console.log("首图有更新")
+            that.setData({
+              myHeadImg: myHeadImg//图片url
+            })
+            //异步缓存
+            wx.setStorage({
+              key: 'headImg',
+              data: myHeadImg,
+            })
+          }else{
+            //console.log("首图和缓存里的一样")
+          }
+        },
       })
-      wx.setStorageSync("headImg", myHeadImg);
+      
     }
   }) 
 }
