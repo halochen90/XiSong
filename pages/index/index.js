@@ -100,7 +100,7 @@ function sendRequestRecords(currentIndex,that) {
         that.data.records.push(rs[i]);
       }
 
-console.log("totalpage:"+res.data.totalPage);
+      console.log("totalpage:"+res.data.totalPage);
       that.setData({
         records: that.data.records,
         currentIndex: currentIndex,

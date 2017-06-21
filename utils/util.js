@@ -6,9 +6,9 @@ function getCurrentTime(){
   return new Date().getTime();
 }
 
-//判断时间距离现在是否超过24小时
+//判断时间距离现在是否超过缓存失效时间
 function isValid(time){
-  if(time != null && (new Date().getTime() - time < 2*24*3600000)){
+  if(time != null && (new Date().getTime() - time < 5*60000)){
     return true;
   }else{
     return false;
@@ -72,7 +72,6 @@ function getHeadImg(that){
       'content-type': 'application/json'
     },
     success: function (res) {
-      // //console.log("res:",res.data);
       var myHeadImg = res.data.imageName;
       wx.getStorage({
         key: 'headImg',
@@ -91,6 +90,16 @@ function getHeadImg(that){
             console.log("首图和缓存里的一样")
           }
         },
+        fail:function(){//没有缓存
+          that.setData({
+            myHeadImg: myHeadImg//图片url
+          })
+          //异步缓存
+          wx.setStorage({
+            key: 'headImg',
+            data: myHeadImg,
+          })
+        }
       })
       
     }

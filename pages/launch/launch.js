@@ -202,6 +202,7 @@ function authSession(session){
 function getHeadImage(that){
   //先去本地缓存里的首图
   var headImg = wx.getStorageSync("headImg");
+  console.log("headimg:",headImg)
   if(headImg){
     that.setData({
       myHeadImg: headImg

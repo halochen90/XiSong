@@ -1,5 +1,5 @@
 <view class="bodyView">  
-<view wx:if="{{images == null}}" style="width:100%;text-align:center"><text>暂时没有任何照片..</text></view>
+<view wx:if="{{images.length == 0}}" style="width:100%;text-align:center"><text>暂时没有任何照片..</text></view>
   <view class ="imageInfo" wx:for="{{images}}" wx:key="imageId">
       <image src="{{item.name}}" class="image" bindtap="checkImage"  data-src="{{item.name}}" data-images="{{images}}">
       </image>
