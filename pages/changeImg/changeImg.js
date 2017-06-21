@@ -1,5 +1,5 @@
 const qiniuUploader = require("../../utils/qiniuUploader");
-var Util = require('../../utils/util.js');
+const Util = require('../../utils/util.js');
 
 //获取应用实例
 var app = getApp()
@@ -155,6 +155,14 @@ function sendRequest(param, that) {
       //更新缓存
       //console.log("更新缓存headImg:" + param.image);
       wx.setStorageSync("headImg", param.image);
+
+      wx.removeStorage({
+        key: 'image',
+        success: function (res) {
+          console.log("更换首图清空image缓存")
+        },
+      })
+
       //返回首页
       if(res.data){//true
         wx.navigateTo({

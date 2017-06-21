@@ -19,6 +19,14 @@ Page({
   //加载函数
   onLoad: function () {
     var that = this;
+    
+    wx.getUserInfo({
+      success: function (res) {
+        that.setData({
+          nickName: res.userInfo.nickName,
+        })
+      }
+    })
 
     wx.getStorage({
       key: 'session',
@@ -29,6 +37,7 @@ Page({
       },
     })
   },
+
   chooseImg:function () {
    var that = this
    wx.chooseImage({
@@ -139,6 +148,19 @@ function sendRequest(params,that) {
       'content-type': 'application/json'
     },
     success: function (res) {
+      console.log("start clear storage");
+
+      wx.removeStorageSync("record");
+      
+      wx.removeStorage({
+        key: 'image',
+        success: function(res) {
+          console.log("清空image缓存")
+        },
+      })
+
+      console.log("end clear storage");
+
       //返回首页
       wx.switchTab({
         url: '/pages/index/index'

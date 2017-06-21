@@ -1,12 +1,13 @@
+const Util = require('../../utils/util.js');
 //index.js
 //获取应用实例
 var app = getApp()
 Page({
   data: {
     userInfo: {},
-    recordPage:{},
     records:[],
     currentIndex:1,
+    totalPage:1,
     session:null
   },
   
@@ -15,9 +16,7 @@ Page({
     var that = this;
     //重新获取第一页的10条记录
     that.setData({
-      recordPage: {},
-      records: [],
-      currentIndex: 1
+      records: []
     })
     wx.getStorage({
       key: 'session',
@@ -25,7 +24,19 @@ Page({
         that.setData({
           session:res.data
         })
-        sendRequestRecords(1, that);
+        //先从缓存中取时间，如果时间不为null，且离当前时间不超过24小时，则从缓存中取出records，不然发送请求获取
+        //获取records缓存
+        var record = wx.getStorageSync("record");
+        console.log("record:",record)
+        var time = record.time;
+        if(Util.isValid(time)){
+          console.log("在有效时间内，从缓存获取records");
+          that.setData({
+            records: record.records
+          })
+        }else{
+          sendRequestRecords(1, that);
+        }
       },
     })
     
@@ -46,53 +57,88 @@ Page({
       current: current,
       urls: srcs,
       success: function (res) {
-        ////console.log(res);
+        console.log(res);
       },
       fail: function () {
-        ////console.log('fail')
+        console.log('fail')
       }
     })
   },
   onReachBottom: function (e) {
     var that = this;
-    var currentIndex = that.data.recordPage.currentIndex;
-    var totalPages = that.data.recordPage.totalPages;
-    if(currentIndex < totalPages){
+    var currentIndex = wx.getStorageSync("record").currentIndex;
+    console.log("currentIndex:"+currentIndex);
+    var totalPage = that.data.totalPage;
+    if(currentIndex < totalPage){
       sendRequestRecords(currentIndex+1,that);
-      // ////console.log("加载下一页数据")
+      // console.log("加载下一页数据")
     }else{
       wx.showToast({
         title: '没有更多数据了..'
       })
-      // //console.log("没有更多数据..")
+      // console.log("没有更多数据..")
     }
   }
 })
 
 //发送请求获取记录
 function sendRequestRecords(currentIndex,that) {
-  //console.log("index session:"+that.data.session)
+  console.log("index session:"+that.data.session)
   wx.request({
     url: app.REQUEST_URL + '/api/records/currentIndex/'+ currentIndex,
     method: 'GET',
-    data: {},
+    data: {nickname:that.data.nickname},
     header: {
       'SESSION': that.data.session,
       'content-type': 'application/json'
     },
     success: function (res) {
+      console.log("获取到的records:",res.data)
       //填充records
-      var rs = res.data.records;
-      for(var i in rs){
+      var rs = res.data.items;
+      for (var i in rs) {
         that.data.records.push(rs[i]);
       }
-      
+
+console.log("totalpage:"+res.data.totalPage);
       that.setData({
-        recordPage:res.data,
         records: that.data.records,
-        currentIndex: currentIndex
+        currentIndex: currentIndex,
+        totalPage: res.data.totalPage
       })
-      // //console.log(that.data.records);
+
+      console.log(res)
+    
+      //缓存record
+      var record = wx.getStorage({
+        key: 'record',
+        success: function(res) {
+          console.log("更新record缓存")
+          var record = res.data;
+          record.records = that.data.records;
+          record.time = Util.getCurrentTime();
+          record.currentIndex = currentIndex;
+
+          wx.setStorage({
+            key: 'record',
+            data: record,
+          })
+        },
+        fail:function(){
+          console.log("新的record缓存")
+          var record = {};
+          record.records = that.data.records;
+          record.time = Util.getCurrentTime();
+          record.currentIndex = currentIndex;
+      
+          wx.setStorage({
+            key: 'record',
+            data: record,
+          })
+        }
+      })  
+
+      console.log("that.data.records:",that.data.records);
     }
   })
 }

@@ -25,24 +25,24 @@ Page({
 
     wx.checkSession({//检查当前是否是登录态
       success: function () {
-        ////console.log("当前是登录态");
+        console.log("当前是登录态");
         wx.getStorage({
           key: 'session',
           success: function(res) {
-            //console.log("登录态,session:"+res.data)
+            console.log("登录态,session:"+res.data)
           },
           fail: function(res){
-            //console.log("登录态session获取失败：",res);
+            console.log("登录态session获取失败：",res);
           }
         })
       },
       fail: function () {
-        //console.log("当前不是登录状态，发起登录接口请求session")
+        console.log("当前不是登录状态，发起登录接口请求session")
         //调用登录接口
         wx.login({
           success: function (loginRes) {
             //发起请求获取登录态
-            //console.log("code:" + loginRes.code);
+            console.log("code:" + loginRes.code);
             Util.saveSession(loginRes.code);
           }
         })
@@ -61,15 +61,15 @@ Page({
     wx.getStorage({
       key: 'session',
       success: function(res) {
-        //console.log("本地缓存session:"+res.data);
+        console.log("本地缓存session:"+res.data);
         authSession(res.data);
       },
       fail: function(){
-          //console.log("session is null");
+          console.log("session is null");
           wx.login({
             success: function (loginRes) {
               //发起请求获取登录态
-              //console.log("code:" + loginRes.code);
+              console.log("code:" + loginRes.code);
               //生成session
               Util.saveSession(loginRes.code);
               wx.redirectTo({
@@ -77,7 +77,7 @@ Page({
               })
             },
             fail:function(res){
-              //console.log("login fail",res);
+              console.log("login fail",res);
             }
           })
       }
@@ -112,7 +112,7 @@ function getBirthday(that) {
       var d = new Date();
       var today = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
       var birthday = res.data.birthday;
-      //console.log("birthday:"+birthday);
+      console.log("birthday:"+birthday);
       var num = dateDiff(birthday, today);
       that.setData({
         days: num
@@ -125,7 +125,7 @@ function getBirthday(that) {
 
 
 function authSession(session){
-  //console.log("authSession:",session)
+  console.log("authSession:",session)
   wx.request({
     url: app.REQUEST_URL + '/api/information/authSession',
     method: 'GET',
@@ -134,15 +134,15 @@ function authSession(session){
       'content-type':'application/json'
     },
     success:function(res){
-      //console.log("authSession结果，res:"+res)
+      console.log("authSession结果，res:"+res)
       if(res.data.result){//验证成功，已授权
         wx.switchTab({
           url: '/pages/index/index'
         })
       }else{//验证失败,未授权
-        //console.log("isAuth:" + res.data.isAuth);
+        console.log("isAuth:" + res.data.isAuth);
         if (res.data.isAuth == 0){
-          //console.log("身份验证失败，跳转到验证页面");
+          console.log("身份验证失败，跳转到验证页面");
           wx.navigateTo({
             url: '/pages/auth/auth'
           }) 
@@ -151,20 +151,17 @@ function authSession(session){
             title: '授权中，请耐心等待授权结果',
           })
         }else if(res.data.isAuth == -1){
-            // wx.showToast({
-            //   title: '很遗憾，您的授权申请已被拒绝',
-            // })
             wx.showModal({
               title: '提示',
               content: '很遗憾，您的授权申请被拒绝了，是否再次发起申请？',
               success: function (res) {
                 if (res.confirm) {
-                  //console.log('再次发起申请,跳转到验证页面')
+                  console.log('再次发起申请,跳转到验证页面')
                   wx.navigateTo({
                     url: '/pages/auth/auth',
                   })
                 } else if (res.cancel) {
-                  //console.log("不选择再次发起申请")
+                  console.log("不选择再次发起申请")
                 }
               }
             })
@@ -173,11 +170,11 @@ function authSession(session){
             title: '很遗憾，您没有权限访问此小程序',
           })
         }else{//session不匹配，重新登录
-          //console.log("session不匹配，重新登录")
+          console.log("session不匹配，重新登录")
           wx.login({
             success: function (loginRes) {
               //发起请求获取登录态
-              //console.log("code:" + loginRes.code);
+              console.log("code:" + loginRes.code);
               Util.saveSession(loginRes.code);    
             }
           })

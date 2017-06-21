@@ -32,8 +32,8 @@ function init(options) {
 }
 
 function updateConfigWithOptions(options) {
-    if (options.region) {
-        config.qiniuRegion = options.region;
+    if (options.qiniuRegion) {
+      config.qiniuRegion = options.qiniuRegion;
     } else {
         console.error('qiniu uploader need your bucket region');
     }

@@ -1,6 +1,21 @@
 //格式化时间
 var app = getApp();
 
+//获取当前时间戳
+function getCurrentTime(){
+  return new Date().getTime();
+}
+
+//判断时间距离现在是否超过24小时
+function isValid(time){
+  if(time != null && (new Date().getTime() - time < 2*24*3600000)){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+//格式化时间
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -64,7 +79,6 @@ function getHeadImg(that){
         success: function(res) {
           var oldHeadImg = res.data;
           if(myHeadImg != oldHeadImg){//如果首图和缓存里的不一样，则更新首图，并更新缓存
-            //console.log("首图有更新")
             that.setData({
               myHeadImg: myHeadImg//图片url
             })
@@ -74,7 +88,7 @@ function getHeadImg(that){
               data: myHeadImg,
             })
           }else{
-            //console.log("首图和缓存里的一样")
+            console.log("首图和缓存里的一样")
           }
         },
       })
@@ -87,5 +101,7 @@ module.exports = {
   saveSession: saveSession,
   getHeadImg: getHeadImg,
   formatTime: formatTime,
-  json2Form: json2Form
+  json2Form: json2Form,
+  getCurrentTime: getCurrentTime,
+  isValid: isValid
 }
