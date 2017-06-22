@@ -72,36 +72,18 @@ function getHeadImg(that){
       'content-type': 'application/json'
     },
     success: function (res) {
-      var myHeadImg = res.data.imageName;
-      wx.getStorage({
-        key: 'headImg',
-        success: function(res) {
-          var oldHeadImg = res.data;
-          if(myHeadImg != oldHeadImg){//如果首图和缓存里的不一样，则更新首图，并更新缓存
-            that.setData({
-              myHeadImg: myHeadImg//图片url
-            })
-            //异步缓存
-            wx.setStorage({
-              key: 'headImg',
-              data: myHeadImg,
-            })
-          }else{
-            console.log("首图和缓存里的一样")
-          }
-        },
-        fail:function(){//没有缓存
-          that.setData({
-            myHeadImg: myHeadImg//图片url
-          })
-          //异步缓存
-          wx.setStorage({
-            key: 'headImg',
-            data: myHeadImg,
-          })
-        }
+      var headImgUrl = res.data.imageUrl;
+      that.setData({
+        headImg: headImgUrl//图片url
       })
-      
+      //异步缓存
+      var headImg = {};
+      headImg.image = headImgUrl;
+      headImg.time = getCurrentTime();
+      wx.setStorage({
+        key: 'headImg',
+        data: headImg,
+      })     
     }
   }) 
 }

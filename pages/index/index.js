@@ -24,19 +24,21 @@ Page({
         that.setData({
           session:res.data
         })
-        //先从缓存中取时间，如果时间不为null，且离当前时间不超过24小时，则从缓存中取出records，不然发送请求获取
+      
+        sendRequestRecords(1, that);
+        
         //获取records缓存
-        var record = wx.getStorageSync("record");
-        console.log("record:",record)
-        var time = record.time;
-        if(Util.isValid(time)){
-          console.log("在有效时间内，从缓存获取records");
-          that.setData({
-            records: record.records
-          })
-        }else{
-          sendRequestRecords(1, that);
-        }
+        // var record = wx.getStorageSync("record");
+        // console.log("record:",record)
+        // var time = record.time;
+        // if(Util.isValid(time)){
+        //   console.log("在有效时间内，从缓存获取records");
+        //   that.setData({
+        //     records: record.records
+        //   })
+        // }else{
+        //   sendRequestRecords(1, that);
+        // }
       },
     })
     
@@ -66,7 +68,7 @@ Page({
   },
   onReachBottom: function (e) {
     var that = this;
-    var currentIndex = wx.getStorageSync("record").currentIndex;
+    var currentIndex = that.data.currentIndex;
     console.log("currentIndex:"+currentIndex);
     var totalPage = that.data.totalPage;
     if(currentIndex < totalPage){
@@ -110,33 +112,33 @@ function sendRequestRecords(currentIndex,that) {
       console.log(res)
     
       //缓存record
-      var record = wx.getStorage({
-        key: 'record',
-        success: function(res) {
-          console.log("更新record缓存")
-          var record = res.data;
-          record.records = that.data.records;
-          record.time = Util.getCurrentTime();
-          record.currentIndex = currentIndex;
+      // var record = wx.getStorage({
+      //   key: 'record',
+      //   success: function(res) {
+      //     console.log("更新record缓存")
+      //     var record = res.data;
+      //     record.records = that.data.records;
+      //     record.time = Util.getCurrentTime();
+      //     record.currentIndex = currentIndex;
 
-          wx.setStorage({
-            key: 'record',
-            data: record,
-          })
-        },
-        fail:function(){
-          console.log("新的record缓存")
-          var record = {};
-          record.records = that.data.records;
-          record.time = Util.getCurrentTime();
-          record.currentIndex = currentIndex;
+      //     wx.setStorage({
+      //       key: 'record',
+      //       data: record,
+      //     })
+      //   },
+      //   fail:function(){
+      //     console.log("新的record缓存")
+      //     var record = {};
+      //     record.records = that.data.records;
+      //     record.time = Util.getCurrentTime();
+      //     record.currentIndex = currentIndex;
       
-          wx.setStorage({
-            key: 'record',
-            data: record,
-          })
-        }
-      })  
+      //     wx.setStorage({
+      //       key: 'record',
+      //       data: record,
+      //     })
+      //   }
+      // })  
 
       console.log("that.data.records:",that.data.records);
     }

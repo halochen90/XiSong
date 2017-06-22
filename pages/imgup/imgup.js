@@ -150,14 +150,14 @@ function sendRequest(params,that) {
     success: function (res) {
       console.log("start clear storage");
 
-      wx.removeStorageSync("record");
+      // wx.removeStorageSync("record");
       
-      wx.removeStorage({
-        key: 'image',
-        success: function(res) {
-          console.log("清空image缓存")
-        },
-      })
+      // wx.removeStorage({
+      //   key: 'image',
+      //   success: function(res) {
+      //     console.log("清空image缓存")
+      //   },
+      // })
 
       console.log("end clear storage");
 

@@ -1,5 +1,5 @@
 <view class="bodyView">
-<view wx:if="{{records.length == 0}}" style="text-align:center">暂时没有任何记录..</view>
+<view hidden="{{records.length != 0}}" style="text-align:center">暂时没有任何记录..</view>
 <view class="itemView" wx:for="{{records}}" wx:key="recordId" wx:for-item="record">
     <view class="imageBox">
     <!--文字描述-->

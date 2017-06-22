@@ -4,7 +4,7 @@
 
    <view class="commentView">
       <view class="headImg">
-        <image mode="aspectFit" style="opacity:0.5" src="{{myHeadImg}}"></image>
+        <image mode="aspectFit" style="opacity:0.5" src="{{headImg}}"></image>
       </view>
    </view>
 

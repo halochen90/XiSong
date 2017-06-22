@@ -20,19 +20,20 @@ Page({
           session: res.data
         })
 
-        //先从缓存中取时间，如果时间不为null，且离当前时间不超过24小时，则从缓存中取出images，不然发送请求获取
+        sendRequestRecords(1, that);
+
         //获取images缓存
-        var image = wx.getStorageSync("image");
-        console.log("image:", image)
-        var time = image.time;
-        if (Util.isValid(time)) {
-          console.log("在有效时间内，从缓存获取images");
-          that.setData({
-            images: image.images
-          })
-        } else {
-          sendRequestRecords(1, that);
-        }
+        // var image = wx.getStorageSync("image");
+        // console.log("image:", image)
+        // var time = image.time;
+        // if (Util.isValid(time)) {
+        //   console.log("在有效时间内，从缓存获取images");
+        //   that.setData({
+        //     images: image.images
+        //   })
+        // } else {
+        //   sendRequestRecords(1, that);
+        // }
       
       },
     })
@@ -62,7 +63,7 @@ Page({
   },
   onReachBottom: function (e) {
     var that = this;
-    var currentIndex = wx.getStorageSync("image").currentIndex;
+    var currentIndex = that.data.currentIndex;
     console.log("currentIndex:" + currentIndex);
     var totalPage = that.data.totalPage;
     if(currentIndex < totalPage){
@@ -101,30 +102,30 @@ function sendRequestRecords(currentIndex,that) {
       })
 
       //缓存image
-      var image = wx.getStorage({
-        key: 'image',
-        success: function(res) {//更新缓存
-          console.log("更新image缓存")
-          var image = res.data;
-          image.images = that.data.images;
-          image.currentIndex = currentIndex;
-          wx.setStorage({
-            key: 'image',
-            data: image,
-          })
-        },
-        fail:function(){//新建缓存
-          console.log("新的image缓存")
-          var image = {};
-          image.images = that.data.images;
-          image.time = Util.getCurrentTime();
-          image.currentIndex = currentIndex;
-          wx.setStorage({
-            key: 'image',
-            data: image,
-          })
-        }
-      })
+      // var image = wx.getStorage({
+      //   key: 'image',
+      //   success: function(res) {//更新缓存
+      //     console.log("更新image缓存")
+      //     var image = res.data;
+      //     image.images = that.data.images;
+      //     image.currentIndex = currentIndex;
+      //     wx.setStorage({
+      //       key: 'image',
+      //       data: image,
+      //     })
+      //   },
+      //   fail:function(){//新建缓存
+      //     console.log("新的image缓存")
+      //     var image = {};
+      //     image.images = that.data.images;
+      //     image.time = Util.getCurrentTime();
+      //     image.currentIndex = currentIndex;
+      //     wx.setStorage({
+      //       key: 'image',
+      //       data: image,
+      //     })
+      //   }
+      // })
 
 
     }

@@ -1,5 +1,5 @@
 // launch.js
-var Util = require('../../utils/util.js');
+const Util = require('../../utils/util.js');
 var app = getApp();
 Page({
 
@@ -202,13 +202,12 @@ function authSession(session){
 function getHeadImage(that){
   //先去本地缓存里的首图
   var headImg = wx.getStorageSync("headImg");
-  console.log("headimg:",headImg)
-  if(headImg){
+  console.log("headImg:",headImg)
+
+  if(headImg && Util.isValid(headImg.time)){
     that.setData({
-      myHeadImg: headImg
+      headImg: headImg.image
     })
-    //再发起请求获取首图
-    Util.getHeadImg(that);
   }else{
     Util.getHeadImg(that);
   }

@@ -26,7 +26,7 @@ Page({
       key: 'headImg',
       success: function(res) {
         that.setData({
-          myHeadImg:res.data
+          headImg:res.data.image
         })
       },
     })
@@ -156,15 +156,19 @@ function sendRequest(param, that) {
     },
     success: function (res) {
       //更新缓存
-      //console.log("更新缓存headImg:" + param.image);
-      wx.setStorageSync("headImg", param.image);
+      var imageUrl = res.data.imageUrl;
+      console.log("更新缓存headImgUrl:" + imageUrl);
+      var headImg = {};
+      headImg.image = imageUrl;
+      headImg.time = Util.getCurrentTime();
+      wx.setStorageSync("headImg", headImg);
 
-      wx.removeStorage({
-        key: 'image',
-        success: function (res) {
-          console.log("更换首图清空image缓存")
-        },
-      })
+      // wx.removeStorage({
+      //   key: 'image',
+      //   success: function (res) {
+      //     console.log("更换首图清空image缓存")
+      //   },
+      // })
 
       //返回首页
       if(res.data){//true
