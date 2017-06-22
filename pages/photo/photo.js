@@ -64,7 +64,7 @@ Page({
   onReachBottom: function (e) {
     var that = this;
     var currentIndex = that.data.currentIndex;
-    console.log("currentIndex:" + currentIndex);
+    // console.log("currentIndex:" + currentIndex);
     var totalPage = that.data.totalPage;
     if(currentIndex < totalPage){
       sendRequestRecords(currentIndex+1,that);

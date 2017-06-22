@@ -59,7 +59,7 @@ Page({
       current: current,
       urls: srcs,
       success: function (res) {
-        console.log(res);
+        // console.log(res);
       },
       fail: function () {
         console.log('fail')
@@ -69,7 +69,7 @@ Page({
   onReachBottom: function (e) {
     var that = this;
     var currentIndex = that.data.currentIndex;
-    console.log("currentIndex:"+currentIndex);
+    // console.log("currentIndex:"+currentIndex);
     var totalPage = that.data.totalPage;
     if(currentIndex < totalPage){
       sendRequestRecords(currentIndex+1,that);
@@ -85,7 +85,7 @@ Page({
 
 //发送请求获取记录
 function sendRequestRecords(currentIndex,that) {
-  console.log("index session:"+that.data.session)
+  // console.log("index session:"+that.data.session)
   wx.request({
     url: app.REQUEST_URL + '/api/records/currentIndex/'+ currentIndex,
     method: 'GET',
@@ -95,21 +95,21 @@ function sendRequestRecords(currentIndex,that) {
       'content-type': 'application/json'
     },
     success: function (res) {
-      console.log("获取到的records:",res.data)
+      // console.log("获取到的records:",res.data)
       //填充records
       var rs = res.data.items;
       for (var i in rs) {
         that.data.records.push(rs[i]);
       }
 
-      console.log("totalpage:"+res.data.totalPage);
+      // console.log("totalpage:"+res.data.totalPage);
       that.setData({
         records: that.data.records,
         currentIndex: currentIndex,
         totalPage: res.data.totalPage
       })
 
-      console.log(res)
+      // console.log(res)
     
       //缓存record
       // var record = wx.getStorage({
@@ -140,7 +140,7 @@ function sendRequestRecords(currentIndex,that) {
       //   }
       // })  
 
-      console.log("that.data.records:",that.data.records);
+      // console.log("that.data.records:",that.data.records);
     }
   })
 }

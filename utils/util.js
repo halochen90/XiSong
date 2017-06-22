@@ -8,7 +8,7 @@ function getCurrentTime(){
 
 //判断时间距离现在是否超过缓存失效时间
 function isValid(time){
-  if(time != null && (new Date().getTime() - time < 5*60000)){
+  if(time != null && (new Date().getTime() - time < 24*3600000)){//1天
     return true;
   }else{
     return false;

@@ -148,7 +148,7 @@ function sendRequest(params,that) {
       'content-type': 'application/json'
     },
     success: function (res) {
-      console.log("start clear storage");
+      // console.log("start clear storage");
 
       // wx.removeStorageSync("record");
       
@@ -159,7 +159,7 @@ function sendRequest(params,that) {
       //   },
       // })
 
-      console.log("end clear storage");
+      // console.log("end clear storage");
 
       //返回首页
       wx.switchTab({

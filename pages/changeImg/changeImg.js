@@ -157,7 +157,7 @@ function sendRequest(param, that) {
     success: function (res) {
       //更新缓存
       var imageUrl = res.data.imageUrl;
-      console.log("更新缓存headImgUrl:" + imageUrl);
+      // console.log("更新缓存headImgUrl:" + imageUrl);
       var headImg = {};
       headImg.image = imageUrl;
       headImg.time = Util.getCurrentTime();
