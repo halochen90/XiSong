@@ -1,7 +1,7 @@
 <view class="bodyView">  
 
   <view class ="imageInfo" wx:for="{{images}}" wx:key="imageId">
-      <image src="{{item.name}}" class="image" bindtap="checkImage"  data-src="{{item.name}}" data-images="{{images}}">
+      <image src="{{item.name}}" class="image" bindtap="checkImage"  mode="aspectFill" data-src="{{item.name}}" data-images="{{images}}">
       </image>
   </view>
 
