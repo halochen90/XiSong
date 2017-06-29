@@ -7,7 +7,7 @@
   
    <view class="imageBox">
 
-    <view class="addBox" bindtap="chooseImg">
+    <view class="addBox" bindtap="chooseContent">
       <image class="addImage" src="../../images/addImage.png" style="width: 160rpx;height: 160rpx;"></image>
     </view>
 
@@ -15,7 +15,15 @@
        <li class="images">
          <view class="imageInfo">
            <image class="image" src="{{ image }}" data-src="{{ image }}" bindtap="checkImage" style="width: 160rpx;height: 160rpx;"></image>
-           <image class="cancel" src="../../images/cencel.png" bindtap="cencelImage" data-index="{{index}}"style="width: 36rpx;height: 36rpx;"></image>
+           <image class="cancel" src="../../images/cencel.png" bindtap="cancelImage" data-index="{{index}}"style="width: 36rpx;height: 36rpx;"></image>
+         </view>
+       </li>
+     </ul>
+     <ul class="imageList" wx:for="{{ videos }}" wx:for-item="video" wx:key="videoURL">
+       <li class="images">
+         <view class="imageInfo">
+           <video class="image" src="{{ video }}" style="width: 160rpx;height: 160rpx;"></video>
+           <image class="cancel" src="../../images/cencel.png" bindtap="cancelVideo" data-index="{{index}}"style="width: 36rpx;height: 36rpx;"></image>
          </view>
        </li>
      </ul>

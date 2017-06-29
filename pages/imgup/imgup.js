@@ -14,7 +14,8 @@ function initQiniu(session) {
 
 Page({
   data: {
-    images: []
+    images: [],
+    videos:[]
   },
   //加载函数
   onLoad: function () {
@@ -38,6 +39,24 @@ Page({
     })
   },
 
+  chooseContent:function(){
+    var that = this;
+    wx.showActionSheet({
+      itemList: ['照片', '视频'],
+      success: function (res) {
+        var index = res.tapIndex;
+        if(index == 0){
+          that.chooseImg();
+        }else{
+          that.chooseVideo();
+        }
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
+
   chooseImg:function () {
    var that = this
    wx.chooseImage({
@@ -57,6 +76,23 @@ Page({
    }) 
   },
 
+  chooseVideo:function(){
+    var that = this;
+    wx.chooseVideo({
+      sourceType: ['album', 'camera'],
+      maxDuration: 60,
+      camera: 'back',
+      success: function (res) {
+        var filePath = res.tempFilePath;
+        that.data.videos.push(filePath);
+        console.log("videos:",that.data.videos)
+        that.setData({
+          videos: that.data.videos
+        })
+      }
+    })
+  },
+
   checkImage: function(e) {
     var current = e.target.dataset.src;
     
@@ -72,7 +108,7 @@ Page({
    })
  },
 
-  cencelImage:function(e){
+  cancelImage:function(e){
     var that = this;
     var index = e.target.dataset.index;
     wx.showModal({
@@ -88,21 +124,44 @@ Page({
         }
       }
     })
+  },
 
+  cancelVideo:function(e){
+    var that = this;
+    var index = e.target.dataset.index;
+    wx.showModal({
+      title: '提示',
+      content: '确定删除该视频？',
+      success: function (res) {
+        if (res.confirm) {
+          var videos = that.data.videos;
+          videos.splice(index, 1);
+          that.setData({
+            videos: videos
+          })
+        }
+      }
+    })
   },
  
   formSubmit: function (e) {
+    wx.showLoading({
+      title: '发布中..',
+    })
     var that = this
     that.setData({
       disabled:true
     })
     //console.log('form发生了submit事件，携带数据为：', e.detail.value.comment)
-    var filePaths = that.data.images;
+    var imagePaths = that.data.images;
+    var videoPaths = that.data.videos;
+    var filePaths = imagePaths.concat(videoPaths);
+    console.log("filepaths:",filePaths)
     var comment = e.detail.value.comment;
     var len = comment.replace(/(^\s*)|(\s*$)/g, "").length;
-    if(filePaths.length < 1 && (len == 0)){
+    if (filePaths.length < 1 && (len == 0)){
       wx.showToast({
-        title: '请至少上传一张图片或输入一段文字！',
+        title: '请至少上传一张图片或一段视频或输入一段文字！',
       })
       return;
     }
@@ -160,11 +219,13 @@ function sendRequest(params,that) {
       // })
 
       // console.log("end clear storage");
-
-      //返回首页
-      wx.switchTab({
-        url: '/pages/index/index'
-      })
+   
     }
+  })
+  //发布成功隐藏加载图
+  wx.hideLoading();
+  //返回首页
+  wx.switchTab({
+    url: '/pages/index/index'
   })
 }

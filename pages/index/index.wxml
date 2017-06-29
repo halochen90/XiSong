@@ -12,6 +12,7 @@
           <li class="images" wx:for="{{record.images}}" wx:key="imageId">
             <view class="imageInfo">
               <image src="{{item.name}}" class="image" bindtap="checkImage" mode="aspectFill" data-src="{{item.name}}" data-images="{{record.images}}"></image>
+              <video src="{{item.name}}"></video>
             </view>
           </li>
         </ul>

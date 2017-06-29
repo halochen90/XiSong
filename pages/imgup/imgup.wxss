@@ -63,6 +63,7 @@
 }
 
 .cancel{
+  z-index: 2;
 	position: absolute;
 	top: 2rpx;
 	right: 2rpx;
