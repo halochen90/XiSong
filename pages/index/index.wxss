@@ -1,10 +1,14 @@
 .itemView{
-  border-bottom: solid lightgrey 1rpx;
+  border-bottom: solid #F5F5F5 1rpx;
 }
 
 .imageList{
 	display: flex;
 	flex-wrap: wrap;
+}
+
+video{
+  width: 714rpx;
 }
 
 .image{
@@ -43,7 +47,7 @@
 }
 
 .timeText{
-  color: lightgrey;
+  color: lightgray;
   font-size: 26rpx;
   font-family: PingFangSC-Regular;
 }

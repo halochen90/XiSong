@@ -14,13 +14,13 @@ function initQiniu(session) {
 
 Page({
   data: {
+    contentType:0,//默认为0照片、视频都可以选，1：照片，2：视频
     images: [],
     videos:[]
   },
   //加载函数
   onLoad: function () {
     var that = this;
-    
     wx.getUserInfo({
       success: function (res) {
         that.setData({
@@ -41,20 +41,28 @@ Page({
 
   chooseContent:function(){
     var that = this;
-    wx.showActionSheet({
-      itemList: ['照片', '视频'],
-      success: function (res) {
-        var index = res.tapIndex;
-        if(index == 0){
-          that.chooseImg();
-        }else{
-          that.chooseVideo();
+    var contentType = that.data.contentType;
+    if(contentType == 0){
+      var contentList = ['照片', '视频'];
+      wx.showActionSheet({
+        itemList: contentList,
+        success: function (res) {
+          var index = res.tapIndex;
+          if (index == 0) {
+            that.chooseImg();
+          } else {
+            that.chooseVideo();
+          }
+        },
+        fail: function (res) {
+          console.log(res.errMsg)
         }
-      },
-      fail: function (res) {
-        console.log(res.errMsg)
-      }
-    })
+      })
+    } else if (contentType == 1){//已选过照片则只能选照片
+      that.chooseImg();
+    } else {//已选了视频则只能再选视频
+      that.chooseVideo();
+    } 
   },
 
   chooseImg:function () {
@@ -70,7 +78,8 @@ Page({
       }
       //必须setData
        that.setData({
-         images: that.data.images
+         images: that.data.images,
+         contentType: 1
        })
     }
    }) 
@@ -87,7 +96,8 @@ Page({
         that.data.videos.push(filePath);
         console.log("videos:",that.data.videos)
         that.setData({
-          videos: that.data.videos
+          videos: that.data.videos,
+          contentType: 2
         })
       }
     })
@@ -121,6 +131,11 @@ Page({
           that.setData({
             images: images
           })
+          if (that.data.images.length == 0){//图片都删完了，可以选择发照片或视频
+            that.setData({
+              contentType: 0
+            })
+          }
         }
       }
     })
@@ -139,15 +154,17 @@ Page({
           that.setData({
             videos: videos
           })
+          if (that.data.videos.length == 0) {//视频都删完了，可以选择发照片或视频
+            that.setData({
+              contentType: 0
+            })
+          }
         }
       }
     })
   },
  
   formSubmit: function (e) {
-    wx.showLoading({
-      title: '发布中..',
-    })
     var that = this
     that.setData({
       disabled:true
@@ -156,26 +173,32 @@ Page({
     var imagePaths = that.data.images;
     var videoPaths = that.data.videos;
     var filePaths = imagePaths.concat(videoPaths);
-    console.log("filepaths:",filePaths)
     var comment = e.detail.value.comment;
     var len = comment.replace(/(^\s*)|(\s*$)/g, "").length;
     if (filePaths.length < 1 && (len == 0)){
       wx.showToast({
         title: '请至少上传一张图片或一段视频或输入一段文字！',
       })
+      that.setData({
+        disabled: false
+      })
       return;
     }
+
+    wx.showLoading({
+      title: '发布中..',
+    })
 
     initQiniu(that.data.session);
     //构造一个参数对象
     var params = new Object();
     params.nickName = that.data.nickName;
     params.comment = e.detail.value.comment;
-    params.images = [];
+    params.files = [];
 
     var successTimes = 0;
     qiniuUploader.uploadMulti(filePaths, (res) => {
-      params.images.push(res.key);
+      params.files.push(res.key);
       successTimes ++;
       if (successTimes == filePaths.length) {
         //console.log("所有图片已经上传成功！")
@@ -200,7 +223,8 @@ function sendRequest(params,that) {
     data: {
       nickname:params.nickName,
       comment:params.comment,
-      images:params.images
+      files:params.files,
+      contentType:that.data.contentType
     },
     header: {
       'SESSION': that.data.session,
@@ -219,13 +243,12 @@ function sendRequest(params,that) {
       // })
 
       // console.log("end clear storage");
-   
+
+      wx.hideLoading();
+      //返回首页
+      wx.switchTab({
+        url: '/pages/index/index'
+      })
     }
-  })
-  //发布成功隐藏加载图
-  wx.hideLoading();
-  //返回首页
-  wx.switchTab({
-    url: '/pages/index/index'
-  })
+  })  
 }

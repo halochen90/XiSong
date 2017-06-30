@@ -1,18 +1,26 @@
 <view class="bodyView">
-
 <view class="itemView" wx:for="{{records}}" wx:key="recordId" wx:for-item="record">
     <view class="imageBox">
     <!--文字描述-->
       <view class="commentView">
         <text class="commentText">{{record.comment}}</text>
       </view>
-      <!--图片展示-->
-      <view class="ulView">
+      <!--视频展示-->
+      <view class="ulView" wx:if="{{record.contentType == 2}}">
+        <ul class="imageList">
+          <li class="images" wx:for="{{record.videos}}" wx:key="videoId">
+            <view class="imageInfo">
+              <video src="{{item.name}}"></video>
+            </view>
+          </li>
+        </ul>
+      </view>
+         <!--图片展示-->
+      <view class="ulView" wx:else>
         <ul class="imageList">
           <li class="images" wx:for="{{record.images}}" wx:key="imageId">
             <view class="imageInfo">
               <image src="{{item.name}}" class="image" bindtap="checkImage" mode="aspectFill" data-src="{{item.name}}" data-images="{{record.images}}"></image>
-              <video src="{{item.name}}"></video>
             </view>
           </li>
         </ul>

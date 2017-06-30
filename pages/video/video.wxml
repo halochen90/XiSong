@@ -1,0 +1,7 @@
+<view class="bodyView">  
+  <view class="videoView" wx:for="{{videos}}" wx:key="videoId">
+    <view class ="videoInfo">
+        <video src="{{item.name}}" class="video" style="width: 714rpx;"></video> 
+    </view>
+  </view>
+</view>

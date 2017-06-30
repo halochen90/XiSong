@@ -7,7 +7,9 @@
     "pages/me/me",
     "pages/auth/auth",
     "pages/apply/apply",
-    "pages/changeImg/changeImg"
+    "pages/changeImg/changeImg",
+    "pages/test/test",
+    "pages/video/video"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,6 +33,12 @@
         "iconPath": "images/photo_gray.png",
         "selectedIconPath": "images/photo.png",
         "text": "相册"
+      },
+      {
+        "pagePath": "pages/video/video",
+        "iconPath": "images/video_gray.png",
+        "selectedIconPath": "images/video.png",
+        "text": "视频"
       },
       {
         "pagePath": "pages/me/me",

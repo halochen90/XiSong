@@ -1,11 +1,8 @@
 //app.js
 var authTip = require("utils/authTip");
 App({
-  // REQUEST_URL: "https://request.halochen.com",
-  REQUEST_URL: "https://192.168.0.31:8443",
-  // REQUEST_URL: "https://localhost:8443",
-  // IMAGE_DOMAIN: "https://resource.halochen.com/",//上传地址
-  IMAGE_DOMAIN: "http://image.halochen.com/",
+  ORIGIN_REQUEST_URL: "https://request.halochen.com",
+  
   SESSION:'',
   days:0,
   globalData: {
@@ -13,6 +10,22 @@ App({
   },
   onLaunch: function () {
     var that = this
+    //获取后台接口地址
+    wx.request({
+      url: that.ORIGIN_REQUEST_URL + '/api/url',
+      method: 'GET',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        var apiUrl = res.data.apiUrl;
+        var qiniu = res.data.qiniu;
+        that.REQUEST_URL = apiUrl;
+        that.IMAGE_DOMAIN = qiniu;
+      }
+    })
+
     //调用登录接口
     wx.login({
       success: function (result) {
