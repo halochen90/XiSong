@@ -89,7 +89,6 @@ function sendRequestRecords(currentIndex,that) {
   wx.request({
     url: app.REQUEST_URL + '/api/records/currentIndex/'+ currentIndex,
     method: 'GET',
-    data: {nickname:that.data.nickname},
     header: {
       'SESSION': that.data.session,
       'content-type': 'application/json'
