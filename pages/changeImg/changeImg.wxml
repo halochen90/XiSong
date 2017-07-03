@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="feedbackContainer" catchtouchmove="doNothing">
+<view class="feedbackContainer">
   <form bindsubmit="formSubmit" bindreset="formReset">
 
    <view class="commentView">

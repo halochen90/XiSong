@@ -1,4 +1,4 @@
-<view class="feedbackContainer" catchtouchmove="doNothing">
+<view class="feedbackContainer">
   <form bindsubmit="formSubmit" bindreset="formReset">
   <view class="commentView">
    <textarea class="feedText" focus="true" placeholder="记录下现在的心情吧^_^" name="comment"/>
