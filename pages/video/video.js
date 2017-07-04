@@ -5,7 +5,7 @@ Page({
   data: {
     videos: [],
     currentIndex: 1,
-    totalPage: 1
+    totalPage: 1,
   },
   onShow: function () {
     var that = this;
@@ -39,7 +39,47 @@ Page({
         title: '没有更多数据了..'
       })
     }
+  },
+
+  play: function(e){
+    var that = this;
+    var index = e.target.dataset.index;
+    console.log("index:"+index);
+    var videos = that.data.videos;
+    for (var i in videos) {
+      videos[i].display = false;
+    }
+    videos[index].display = true;
+    console.log("videos:",videos)
+    that.setData({
+      videos: videos
+    })
+  },
+  
+  pause:function(e){
+    var that = this;
+    var index = e.target.dataset.index;
+    var videos = that.data.videos;
+    for (var i in videos) {
+      videos[i].display = true;
+    }
+    that.setData({
+      videos: videos,
+    })
+  },
+
+  ended:function(e){
+    var that = this;
+    var index = e.target.dataset.index;
+    var videos = that.data.videos;
+    for (var i in videos) {
+      videos[i].display = true;
+    }
+    that.setData({
+      videos: videos,
+    })
   }
+
 })
 
 //发送请求获取记录

@@ -1,1 +1,13 @@
-<video src="http://image.halochen.com/tmp_497292361o6zAJs4UQ3Xr2Dz792nc7prWc87s77d0dfb78900a9949d6eaaff71d7951b.mp4" ></video>
+<view>
+  <image src="http://image.halochen.com/tmp_9a793e519f53d168162c9a0fef77ebf7.mp4?vframe/png/offset/1/w/50/h/50" bindtap="showVideo"  data-id="1" hidden="{{!hidden}}"></image>
+  <video  src="http://image.halochen.com/tmp_9a793e519f53d168162c9a0fef77ebf7.mp4" hidden="{{hidden}}" style="width:100%"></video>
+</view>
+<view>
+  <image src="http://image.halochen.com/tmp_cad2731e92da2c0b657f6f3c6bb8b5fe.mp4?vframe/png/offset/1/w/50/h/50" bindtap="showVideo"   data-id="2"></image>
+  <video src="http://image.halochen.com/tmp_cad2731e92da2c0b657f6f3c6bb8b5fe.mp4"  hidden="true" style="width:100%" ></video>
+</view>
+<view>
+  <image src="http://image.halochen.com/tmp_2bcfefce2762fe00bf181ba7ba94da88.mp4?vframe/png/offset/1/w/50/h/50" bindtap="showVideo"  data-id="3" ></image>
+  <video src="http://image.halochen.com/tmp_2bcfefce2762fe00bf181ba7ba94da88.mp4" hidden="true"  style="width:100%"></video>
+</view>
+
