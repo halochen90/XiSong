@@ -4,13 +4,13 @@ var app = getApp()
 Page({
   data: {
     videos: [],
-    currentIndex: 1,
     totalPage: 1,
   },
-  onShow: function () {
+  onLoad: function () {
     var that = this;
     that.setData({
-      videos: []
+      videos: [],
+      currentIndex: 1
     })
 
     wx.getStorage({
@@ -26,8 +26,26 @@ Page({
     })
   },
 
+  onPullDownRefresh: function () {
+    var that = this;
+    that.onLoad();
+    wx.stopPullDownRefresh();
+    //设置下拉刷新标识
+    that.setData({
+      isPullDown: true
+    })
+  },
+
   onReachBottom: function (e) {
     var that = this;
+    //如果是下拉刷新操作，不执行操作
+    if (that.data.isPullDown == true) {
+      that.setData({
+        isPullDown: false
+      })
+      return false;
+    }
+
     var currentIndex = that.data.currentIndex;
     // console.log("currentIndex:" + currentIndex);
     var totalPage = that.data.totalPage;
@@ -41,42 +59,31 @@ Page({
     }
   },
 
-  play: function(e){
+//如果切换到其他页面，则结束播放的视频
+  onHide: function () {
     var that = this;
-    var index = e.target.dataset.index;
-    console.log("index:"+index);
+  
     var videos = that.data.videos;
     for (var i in videos) {
-      videos[i].display = false;
+      videos[i].display = true;
     }
-    videos[index].display = true;
-    console.log("videos:",videos)
+  
     that.setData({
       videos: videos
     })
   },
-  
-  pause:function(e){
-    var that = this;
-    var index = e.target.dataset.index;
-    var videos = that.data.videos;
-    for (var i in videos) {
-      videos[i].display = true;
-    }
-    that.setData({
-      videos: videos,
-    })
-  },
 
-  ended:function(e){
+  play: function(e){
     var that = this;
     var index = e.target.dataset.index;
     var videos = that.data.videos;
     for (var i in videos) {
       videos[i].display = true;
     }
+    videos[index].display = false;
+    // console.log("videos:",videos)
     that.setData({
-      videos: videos,
+      videos: videos
     })
   }
 

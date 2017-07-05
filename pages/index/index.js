@@ -6,17 +6,17 @@ Page({
   data: {
     userInfo: {},
     records:[],
-    currentIndex:1,
     totalPage:1,
     session:null
   },
   
   // 每次进入页面都会调用
-  onShow: function(){
+  onLoad: function(){
     var that = this;
-    //重新获取第一页的10条记录
+    //获取第一页的10条记录
     that.setData({
-      records: []
+      records: [],
+      currentIndex: 1
     })
     wx.getStorage({
       key: 'session',
@@ -27,22 +27,59 @@ Page({
       
         sendRequestRecords(1, that);
         
-        //获取records缓存
-        // var record = wx.getStorageSync("record");
-        // console.log("record:",record)
-        // var time = record.time;
-        // if(Util.isValid(time)){
-        //   console.log("在有效时间内，从缓存获取records");
-        //   that.setData({
-        //     records: record.records
-        //   })
-        // }else{
-        //   sendRequestRecords(1, that);
-        // }
       },
-    })
-    
+    }) 
   },
+
+//如果切换到其他页面，则结束播放的视频
+  onHide:function(){
+    var that = this;
+    var records = that.data.records;
+    for (var i in records) {
+      if (records[i].contentType == 2) {
+        var videos = records[i].videos;
+        for (var j in videos) {
+          videos[j].display = true;
+        }
+      }
+    }
+    
+    that.setData({
+      records: records,
+    })
+  },
+
+  onPullDownRefresh: function () {
+    var that = this;
+    that.onLoad();
+    wx.stopPullDownRefresh();
+    //设置下拉刷新标识
+    that.setData({
+      isPullDown:true
+    })
+  },
+
+  play: function (e) {
+    var that = this;
+    var index = e.target.dataset.index;
+    var recordIndex = e.target.dataset.recordindex;
+
+    var records = that.data.records;
+    for (var i in records) {
+      if (records[i].contentType == 2){
+        var videos = records[i].videos;
+        for(var j in videos){
+          videos[j].display = true;
+        }
+      }
+    }
+    records[recordIndex].videos[index].display = false;
+    console.log("records:", records)
+    that.setData({
+      records: records,
+    })
+  },
+
   //预览图片
   checkImage: function (e) {
     //接收点击事件传过来的参数
@@ -59,7 +96,7 @@ Page({
       current: current,
       urls: srcs,
       success: function (res) {
-        // console.log(res);
+        console.log("预览成功：",res)
       },
       fail: function () {
         console.log('fail')
@@ -68,6 +105,14 @@ Page({
   },
   onReachBottom: function (e) {
     var that = this;
+    //如果是下拉刷新操作，不执行操作
+    if (that.data.isPullDown == true){
+      that.setData({
+        isPullDown:false
+      })
+      return false;
+    }
+
     var currentIndex = that.data.currentIndex;
     // console.log("currentIndex:"+currentIndex);
     var totalPage = that.data.totalPage;
@@ -108,38 +153,6 @@ function sendRequestRecords(currentIndex,that) {
         totalPage: res.data.totalPage
       })
 
-      // console.log(res)
-    
-      //缓存record
-      // var record = wx.getStorage({
-      //   key: 'record',
-      //   success: function(res) {
-      //     console.log("更新record缓存")
-      //     var record = res.data;
-      //     record.records = that.data.records;
-      //     record.time = Util.getCurrentTime();
-      //     record.currentIndex = currentIndex;
-
-      //     wx.setStorage({
-      //       key: 'record',
-      //       data: record,
-      //     })
-      //   },
-      //   fail:function(){
-      //     console.log("新的record缓存")
-      //     var record = {};
-      //     record.records = that.data.records;
-      //     record.time = Util.getCurrentTime();
-      //     record.currentIndex = currentIndex;
-      
-      //     wx.setStorage({
-      //       key: 'record',
-      //       data: record,
-      //     })
-      //   }
-      // })  
-
-      // console.log("that.data.records:",that.data.records);
     }
   })
 }

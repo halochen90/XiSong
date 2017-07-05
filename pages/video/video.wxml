@@ -1,7 +1,13 @@
 <view class="bodyView" >  
-  <view class="videoView" wx:if="{{item.display}}" wx:for="{{videos}}" wx:key="videoId">
+  <view class="videoView" wx:for="{{videos}}" wx:key="videoId">
     <view class ="videoInfo">
-        <video src="{{item.name}}" class="video" bindplay="play" bindpause="pause" bindended="ended" data-index="{{index}}"></video> 
+      <view wx:if="{{item.display}}">
+        <image src="{{item.name}}?vframe/png/offset/1/w/375/h/225" class="image" ></image>
+        <image src="../../images/play_white.png" class="playImg" data-index="{{index}}" bindtap="play"></image>
+      </view>
+      <view wx:else> 
+        <video src="{{item.name}}" class="video" autoplay="true"></video> 
+      </view>
     </view>
   </view>
 </view>

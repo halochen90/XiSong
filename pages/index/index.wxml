@@ -1,5 +1,5 @@
 <view class="bodyView">
-<view class="itemView" wx:for="{{records}}" wx:key="recordId" wx:for-item="record">
+<view class="itemView" wx:for="{{records}}" wx:for-index="recordindex" wx:key="recordId" wx:for-item="record">
     <view class="imageBox">
     <!--文字描述-->
       <view class="commentView">
@@ -10,7 +10,13 @@
         <ul class="imageList">
           <li class="images" wx:for="{{record.videos}}" wx:key="videoId">
             <view class="imageInfo">
-              <video src="{{item.name}}"></video>
+              <view wx:if="{{item.display}}">
+                <image src="{{item.name}}?vframe/png/offset/1/w/375/h/225" class="faceImg"></image>
+                <image src="../../images/play_white.png" class="playImg" data-recordindex="{{recordindex}}" data-index="{{index}}" bindtap="play"></image>
+              </view>
+              <view wx:else> 
+                <video src="{{item.name}}"  autoplay="true"></video> 
+              </view>
             </view>
           </li>
         </ul>

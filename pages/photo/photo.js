@@ -4,13 +4,13 @@ var app = getApp()
 Page({
   data: {
     images:[],
-    currentIndex:1,
     totalPage:1
   },
-  onShow: function () {
+  onLoad: function () {
     var that = this;
     that.setData({
-      images: []
+      images: [],
+      currentIndex: 1,
     })
     
     wx.getStorage({
@@ -21,23 +21,21 @@ Page({
         })
 
         sendRequestRecords(1, that);
-
-        //获取images缓存
-        // var image = wx.getStorageSync("image");
-        // console.log("image:", image)
-        // var time = image.time;
-        // if (Util.isValid(time)) {
-        //   console.log("在有效时间内，从缓存获取images");
-        //   that.setData({
-        //     images: image.images
-        //   })
-        // } else {
-        //   sendRequestRecords(1, that);
-        // }
       
       },
     })
   },
+
+  onPullDownRefresh: function () {
+    var that = this;
+    that.onLoad();
+    wx.stopPullDownRefresh();
+    //设置下拉刷新标识
+    that.setData({
+      isPullDown: true
+    })
+  },
+
   //预览图片
   checkImage: function (e) {
     //接收点击事件传过来的参数
@@ -63,6 +61,13 @@ Page({
   },
   onReachBottom: function (e) {
     var that = this;
+    //如果是下拉刷新操作，不执行操作
+    if (that.data.isPullDown == true) {
+      that.setData({
+        isPullDown: false
+      })
+      return false;
+    }
     var currentIndex = that.data.currentIndex;
     // console.log("currentIndex:" + currentIndex);
     var totalPage = that.data.totalPage;

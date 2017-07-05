@@ -1,16 +1,15 @@
 {
   "pages": [
-    "pages/video/video",
     "pages/launch/launch",
     "pages/index/index",
     "pages/photo/photo",
+    "pages/video/video",
     "pages/imgup/imgup",
     "pages/me/me",
     "pages/auth/auth",
     "pages/apply/apply",
     "pages/changeImg/changeImg",
-    "pages/test/test"
-    
+    "pages/test/test"   
   ],
   "window": {
     "backgroundTextStyle": "light",
