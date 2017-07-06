@@ -3,6 +3,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.imageInfo{
+  margin-bottom:-4rpx;
+}
+
 .image{
   width: 182rpx;
   height: 182rpx;

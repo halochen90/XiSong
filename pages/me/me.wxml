@@ -12,7 +12,7 @@
     <view class="uploadView" wx:if="{{role == 1 || role == 2}}">
       <button class="publishButton" type="primary" bindtap="wantPublish">我要发布</button>  
       <button class="dealButton" type="default" bindtap="dealAuthApply">处理申请</button>  
-      <text class="applyNum">未处理请求数:<text style="color:red;width:10rpx">{{applyNum}}</text>条</text>
+      <text class="applyNum">未处理请求:<text style="color:red;width:10rpx">{{applyNum}}</text>条</text>
    </view>
 
     <view class="bottomView"  wx:if="{{role == 1 || role == 2}}">

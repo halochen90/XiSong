@@ -1,29 +1,31 @@
 .itemView{
-  border-bottom: solid #F5F5F5 1rpx;
+  border-bottom: solid #E5E5E5 1rpx;
 }
 
 .imageList{
 	display: flex;
+  display:-webkit-flex;
 	flex-wrap: wrap;
 }
 
-video{
-  width: 714rpx;
-}
-
 .image{
-  width: 232rpx;
-  height: 232rpx;
+  width: 228rpx;
+  height: 228rpx;
 }
 
 .imageInfo{
 	position: relative;
 	display: block;
-  padding: 2rpx 4rpx;
+  padding: 0rpx 4rpx;
+  margin-bottom:-6rpx;
+}
+
+video{
+  width: 700rpx;
 }
 
 .faceImg{
-  width:714rpx;
+  width:700rpx;
   height:450rpx;
 }
 
@@ -37,8 +39,9 @@ video{
 
 .imageBox{
 	display: flex;
+  display:-webkit-flex;
 	flex-wrap: wrap;
-  padding:14rpx;
+  padding:24rpx 20rpx;
 }
 
 
@@ -57,10 +60,11 @@ video{
 .timeView{
   width:100%;
   padding:0 4rpx;
+  margin-top:6rpx;
 }
 
 .timeText{
-  color: lightgray;
+  color: #858585;
   font-size: 26rpx;
   font-family: PingFangSC-Regular;
 }
