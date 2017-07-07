@@ -2,7 +2,7 @@
   <view class="videoView" wx:for="{{videos}}" wx:key="videoId">
     <view class ="videoInfo">
       <view wx:if="{{item.display}}">
-        <image src="{{item.name}}?vframe/png/offset/1/w/375/h/225" class="image" ></image>
+        <image src="{{item.name}}?vframe/png/offset/1" class="image" mode="aspectFit"></image>
         <image src="../../images/play_white.png" class="playImg" data-index="{{index}}" bindtap="play"></image>
       </view>
       <view wx:else> 

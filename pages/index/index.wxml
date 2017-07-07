@@ -11,11 +11,11 @@
           <li class="images" wx:for="{{record.videos}}" wx:key="videoId">
             <view class="imageInfo">
               <view wx:if="{{item.display}}">
-                <image src="{{item.name}}?vframe/png/offset/1/w/375/h/225" class="faceImg"></image>
+                <image src="{{item.name}}?vframe/png/offset/1" class="faceImg" mode="aspectFit"></image>
                 <image src="../../images/play_white.png" class="playImg" data-recordindex="{{recordindex}}" data-index="{{index}}" bindtap="play"></image>
               </view>
               <view wx:else> 
-                <video src="{{item.name}}"  autoplay="true"></video> 
+                <video src="{{item.name}}"  autoplay="true" ></video> 
               </view>
             </view>
           </li>

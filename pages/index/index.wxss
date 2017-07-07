@@ -1,5 +1,5 @@
 .itemView{
-  border-bottom: solid #E5E5E5 1rpx;
+  border-bottom: solid #E5E5E5 2rpx;
 }
 
 .imageList{
@@ -20,20 +20,20 @@
   margin-bottom:-6rpx;
 }
 
-video{
-  width: 700rpx;
+video,.faceImg{
+  width:700rpx;
+  height:396rpx;
 }
 
 .faceImg{
-  width:700rpx;
-  height:450rpx;
+  background-color: black;
 }
 
 .playImg{
   width:50px;
   height:50px;
   position:absolute;
-  top:170rpx;
+  top:150rpx;
   left:310rpx;
 }
 
